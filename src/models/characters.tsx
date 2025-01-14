@@ -1,10 +1,20 @@
-export interface Enemy {
-    id: string,
-    name: string,
-    position: {x: number, y: number},
+export interface CharacterInfo {
+    name?: string,
+    hp?: number,
+    maxHp?: number,
+    lvl?: number,
 }
 
-export interface Player {
+export interface Enemy extends CharacterInfo {
     id: string,
     name: string,
+    position: {x: number, y: number} | null,
+}
+
+export interface Player extends CharacterInfo {
+    id: string,
+    avatar?: string,
+    gold?: number,
+    exp?: number,
+    requiredExp?: number,
 }
