@@ -17,9 +17,9 @@ const PlayerInfo = ({player}: PlayerInfo) => {
                 </div>
                 <div className="w-full bg-gray-200 h-4 dark:bg-gray-700 relative">
                     <span className='absolute top-0 left-2 text-white text-[.7rem]'>{player.exp}/{player.requiredExp}</span>
-                    <div className="bg-[#A1662F] h-4" style={{width: `50%`}}></div>
+                    <div className="bg-[#C19A6B] h-4" style={{width: `50%`}}></div>
                 </div>
-                <p className='flex gap-3 items-center text-sm text-white'><Icon icon="wpf:coins" width="18" height="18"  style={{color: '#A1662F'}} /> {player.gold}</p>
+                <p className='flex gap-3 items-center text-sm text-white'><Icon icon="wpf:coins" width="18" height="18"  style={{color: '#C19A6B'}} /> {player.gold}</p>
             </div>
         </div>
     )
