@@ -3,19 +3,19 @@ import CharacterHp from "../character-info/character-hp"
 import CharacterLvl from "../character-info/character-lvl"
 import CharacterName from "../character-info/character-name"
 import { playerInfoContext } from "../../context/player-info.context"
-import { enemyInfoContext } from "../../context/enemy-info.context"
 import { useContext, useEffect, useState } from "react"
 import BattleOver from "./battle-over-modal"
-import { useNavigate } from "react-router"
+import { useNavigate, useLocation } from "react-router"
 
 const Battle = () => {
     const {playerInfo} = useContext(playerInfoContext)!
-    const {enemyInfo} = useContext(enemyInfoContext)!
     const navigate = useNavigate()
+    const location = useLocation()
+    const {monster} = location.state || {}
 
     const [isOver, setIsOver] = useState(false)
     const [playerHp, setPlayerHp] = useState(playerInfo?.hp)
-    const [enemyHp, setEnemyHp] = useState(enemyInfo.hp)
+    const [enemyHp, setEnemyHp] = useState(monster.hp)
 
     const playerAttack = () => {
         if(isOver) return
@@ -69,12 +69,12 @@ const Battle = () => {
                 <div>
                     <div className="max-w-[150px] mx-auto">
                         <div className="flex justify-between items-center mb-2">
-                            <CharacterName character={{name: "Bandit"}} />
-                            <CharacterLvl character={{lvl: enemyInfo.lvl}} />
+                            <CharacterName character={{name: monster.name}} />
+                            <CharacterLvl character={{lvl: monster.lvl}} />
                         </div>
-                        <CharacterHp character={{hp: enemyHp, maxHp: playerInfo?.maxHp}} />
+                        <CharacterHp character={{hp: enemyHp, maxHp: monster.hp}} />
                     </div>
-                    <Enemy enemies={{id: "143", name: "Enemy", model: './monster.png'}} />
+                    <Enemy enemies={{id: monster.id, name: monster.name, model: monster.model}} />
                 </div>
             </div>
             {isOver && <BattleOver claim={claimReward} /> }
