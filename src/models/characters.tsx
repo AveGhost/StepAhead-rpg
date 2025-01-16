@@ -7,8 +7,9 @@ export interface CharacterInfo {
 
 export interface Enemy extends CharacterInfo {
     id: string,
-    name: string,
-    position: {x: number, y: number} | null,
+    name?: string,
+    position?: {x: number, y: number} | null,
+    model: string,
 }
 
 export interface Player extends CharacterInfo {

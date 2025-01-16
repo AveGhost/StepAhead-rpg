@@ -3,19 +3,18 @@ import { CharacterInfo } from "../models/characters";
 import useLocalStorageState from "use-local-storage-state";
 
 interface PlayerInfoContext {
-    playerInfo: CharacterInfo;
-    setPlayerInfo: (playerInfo: CharacterInfo) => void;
+    playerInfo: CharacterInfo | null;
 }
 
 export const playerInfoContext = createContext<PlayerInfoContext | null>(null);
 
 export const PlayerInfoProvider = ({ children }: { children?: ReactNode }) => {
-    const [playerInfo, setPlayerInfo] = useLocalStorageState<CharacterInfo>('playerInfo', {
+    const [playerInfo] = useLocalStorageState<CharacterInfo>('playerInfo', {
         defaultValue: { hp: 100, maxHp: 100, lvl: 1 },
     });
 
     return (
-        <playerInfoContext.Provider value={{ playerInfo, setPlayerInfo }}>
+        <playerInfoContext.Provider value={{ playerInfo}}>
             {children}
         </playerInfoContext.Provider>
     );

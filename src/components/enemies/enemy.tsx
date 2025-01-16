@@ -1,12 +1,12 @@
-import { Enemy as Enemies } from "../models/characters"
+import type { Enemy as Enemies } from "../../models/characters"
 
 interface EnemyList {
-    enemies: Enemies[]
+    enemies: Enemies
 }
 
 const Enemy = ({enemies}: EnemyList) => {
     return (
-        <img src='./character.png' width={'120px'} style={{bottom: `${enemies.position?.y}%`, left: `${enemies.position?.x}%`}} className={enemies.position ? 'fixed' : `w-full max-w-[200px]`} />
+        <img src={enemies.model} width={'120px'} style={{bottom: `${enemies.position?.y}%`, left: `${enemies.position?.x}%`}} className={enemies.position ? 'fixed' : `w-full max-w-[200px]`} />
     )
 }
 

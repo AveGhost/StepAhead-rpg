@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import Enemy from '../components/enemies/enemy'
 import { characterMove } from '../models/movement'
-import { enemies } from '../api/enemies'
+import { enemies } from '../api/enemies.ts'
 import PlayerInfo from '../components/player/player-info'
 const World = () => {
-    const enemy: Enemy[] = enemies
     const [step, setStep] = useState(0);
     const [spawnedEnemiesCount, setSpawnedEnemiesCount] = useState(0);
 
@@ -22,7 +21,7 @@ const World = () => {
     spawnRandomNumOfEnemy()
     },[step])
 
-    const limitedEnemies = enemy.slice(0, spawnedEnemiesCount)
+    const limitedEnemies = enemies.slice(0, spawnedEnemiesCount)
 
     return (
         <div className='map relative bg-[url(/map.webp)] min-h-[100vh] bg-center bg-cover bg-no-repeat bg-fixed'>
