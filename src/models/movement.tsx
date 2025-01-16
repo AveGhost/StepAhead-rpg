@@ -4,9 +4,9 @@ interface Acceleration {
     z: number | null;
 };
 
-interface Steps {
-    step: number;
-    setStep: (step: number) => void;
+export interface Steps {
+    steps: number;
+    setSteps: (step: number) => void;
 }
 
 let lastAcceleration: Acceleration = { x: 0, y: 0, z: 0 };
@@ -14,7 +14,7 @@ const threshold = 1.8;
 const debounceTime = 600;
 let lastStepTime = 0;
 
-export const characterMove = ({ step, setStep }: Steps): void => {
+export const characterMove = ({ steps, setSteps }: Steps): void => {
   if (window.DeviceMotionEvent) {
     window.addEventListener('devicemotion', (event: DeviceMotionEvent) => {
       const acceleration = event.acceleration;
@@ -24,7 +24,7 @@ export const characterMove = ({ step, setStep }: Steps): void => {
         const deltaZ = Math.abs((acceleration.z ?? 0) - (lastAcceleration.z ?? 0));
 
         if (deltaZ > threshold && currentTime - lastStepTime > debounceTime) {
-          setStep(step + 1);
+          setSteps(steps + 1);
           lastStepTime = currentTime;
         }
 
