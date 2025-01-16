@@ -1,7 +1,8 @@
 import { Enemy } from "../models/characters"
+import { nanoid } from "nanoid"
 export const enemies: Enemy[] = [
     {
-      id: '1',
+      id: nanoid(),
       name: 'Enemy 1',
       position: { x: Math.floor(Math.random() *  90), y: Math.floor(Math.random() *  90)},
       model: './monster.png',
@@ -10,7 +11,7 @@ export const enemies: Enemy[] = [
       lvl: 1
     },
     {
-      id: '2',
+      id: nanoid(),
       name: 'Enemy 2',
       position: { x: Math.floor(Math.random() *  90), y: Math.floor(Math.random() *  90)},
       model: './monster.png',
@@ -19,7 +20,7 @@ export const enemies: Enemy[] = [
       lvl: 1
     },
     {
-      id: '3',
+      id: nanoid(),
       name: 'Enemy 3',
       position: { x: Math.floor(Math.random() *  90), y: Math.floor(Math.random() *  90)},
       model: './monster.png',
@@ -28,7 +29,7 @@ export const enemies: Enemy[] = [
       lvl: 2
     },
     {
-      id: '4',
+      id: nanoid(),
       name: 'Enemy 4',
       position: { x: Math.floor(Math.random() *  90), y: Math.floor(Math.random() *  90)},
       model: './monster.png',
@@ -37,7 +38,7 @@ export const enemies: Enemy[] = [
       lvl: 2
     },
     {
-      id: '5',
+      id: nanoid(),
       name: 'Enemy 5',
       position: { x: Math.floor(Math.random() *  90), y: Math.floor(Math.random() *  90)},
       model: './monster.png',
@@ -46,7 +47,7 @@ export const enemies: Enemy[] = [
       lvl: 3
     },
     {
-      id: '6',
+      id: nanoid(),
       name: 'Enemy 6',
       position: { x: Math.floor(Math.random() *  90), y: Math.floor(Math.random() *  90)},
       model: './monster.png',
@@ -55,7 +56,7 @@ export const enemies: Enemy[] = [
       lvl: 3
     },
     {
-      id: '7',
+      id: nanoid(),
       name: 'Enemy 7',
       position: { x: Math.floor(Math.random() *  90), y: Math.floor(Math.random() *  90)},
       model: './monster.png',
@@ -64,7 +65,7 @@ export const enemies: Enemy[] = [
       lvl: 3
     },
     {
-      id: '8',
+      id: nanoid(),
       name: 'Enemy 8',
       position: { x: Math.floor(Math.random() *  90), y: Math.floor(Math.random() *  90)},
       model: './monster.png',
@@ -73,7 +74,7 @@ export const enemies: Enemy[] = [
       lvl: 4
     },
     { 
-      id: '9',
+      id: nanoid(),
       name: 'Enemy 9',
       position: { x: Math.floor(Math.random() *  90), y: Math.floor(Math.random() *  90)},
       model: './monster.png',

@@ -12,7 +12,12 @@ export interface Enemy extends CharacterInfo {
     model: string,
 }
 
-export interface Player extends CharacterInfo {
+export interface Rewards {
+    setGold?: (gold: number) => void,
+    setExp?: (exp: number) => void
+}
+
+export interface Player extends CharacterInfo,Rewards {
     id: string,
     avatar?: string,
     gold?: number,

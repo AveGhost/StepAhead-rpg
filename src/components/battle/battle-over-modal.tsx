@@ -5,7 +5,6 @@ interface BattleOverProps {
 }
 
 const BattleOver = ({claim}: BattleOverProps) => {
-    console.log(claim)
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-[#000000] bg-opacity-50 flex justify-center items-center z-10">
             <div className="border border-[#C19A6B] bg-black/40 p-6 w-[400px]">
