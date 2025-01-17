@@ -19,7 +19,17 @@ export const PlayerInfoProvider = ({ children }: { children?: ReactNode }) => {
         gold: 0,
         lvl: 1,
         exp: 0,
-        requiredExp: 100
+        requiredExp: 100,
+        hp: 100,
+        maxHp: 100,
+        attackSpeed: 0,
+        damage: 10,
+        arrmor: 0,
+        evasion: 0,
+        strength: 10,
+        dexterity: 10,
+        endurance: 10,
+        luck: 10
     }});
     const setGold = (gold: number) => {
         setPlayerInfo(prev => ({ ...prev, gold: prev.gold! + gold }));

@@ -10,10 +10,14 @@ import { RandomSpawnMonstersContext } from "../../context/random-spawn-monsters.
 
 const Battle = () => {
     const {playerInfo, setExp, setGold} = useContext(playerInfoContext)!
-    const {hp, maxHp, lvl, name} = playerInfo!
+    const {hp, maxHp, lvl, name, damage, attackSpeed, arrmor, evasion} = playerInfo!
     const navigate = useNavigate()
     const location = useLocation()
     const {monster} = location.state || {}
+    
+    const defaultAttackSpeed = 2000
+    const playerAttackSpeed = defaultAttackSpeed - (defaultAttackSpeed * (attackSpeed ?? 0) / 100)
+    const monsterAttackSpeed = defaultAttackSpeed - (defaultAttackSpeed * (monster.attackSpeed ?? 0) / 100)
 
     const {randomSpawnMonsters,setRandomSpawnMonsters} = useContext(RandomSpawnMonstersContext)!
 
@@ -23,25 +27,29 @@ const Battle = () => {
 
     const playerAttack = () => {
         if(isOver) return
-        const damage = Math.floor(Math.random() * 10) + 1
-        if(enemyHp) setEnemyHp(enemyHp - damage)
+        const attack = Math.floor(Math.random() * 10 + 1 + (damage ?? 2 * 0.5))
+        if(enemyHp) setEnemyHp(enemyHp - attack)
     }
 
     const enemyAttack = () => {
         if(isOver) return
-        const damage = Math.floor(Math.random() * 10) + 1
-        if(playerHp) setPlayerHp(playerHp - damage)
+        const attack = Math.floor(Math.random() * 10 + 1 + (monster.damage ?? 2 * 0.5))
+        if(playerHp) setPlayerHp(playerHp - attack)
     }
 
-    const Fight = () => {
+    const playerTrun = () => {
         setTimeout(() => {
             playerAttack()
-        }, 1000)
+        }, playerAttackSpeed)
+    }
 
+    const enemyTurn = () => {
         setTimeout(() => {
             enemyAttack()
-        },1000)
+        }, monsterAttackSpeed)
+    }
 
+    const fightOver = () => {
         if(playerHp! <= 0 || enemyHp! <= 0) {
             setIsOver(true)
         }
@@ -64,8 +72,16 @@ const Battle = () => {
     }
 
     useEffect(() => {
-        Fight()
-    }, [enemyHp, playerHp])
+        playerTrun()
+    }, [enemyHp])
+
+    useEffect(() => {
+        enemyTurn()
+    }, [playerHp])
+
+    useEffect(() => {
+        fightOver()
+    },[playerHp, enemyHp])
 
 
     return (
