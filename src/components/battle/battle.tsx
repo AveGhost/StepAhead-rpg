@@ -7,40 +7,48 @@ import { useContext, useEffect, useState } from "react"
 import BattleOver from "./battle-over-modal"
 import { useNavigate, useLocation } from "react-router"
 import { RandomSpawnMonstersContext } from "../../context/random-spawn-monsters.context"
+import { calculatePlayerDamage } from "../../mixins/statistic"
+import { calculateAttackSpeed } from "../../mixins/statistic"
+import { calculateHp } from "../../mixins/statistic"
+import { calculateCriticalHit } from "../../mixins/statistic"
 
 const Battle = () => {
     const {playerInfo, setExp, setGold} = useContext(playerInfoContext)!
-    const {hp, maxHp, lvl, name, damage, attackSpeed, arrmor, evasion} = playerInfo!
+    const {lvl, name, arrmor, evasion} = playerInfo!
     const navigate = useNavigate()
     const location = useLocation()
     const {monster} = location.state || {}
     
     const defaultAttackSpeed = 2000
-    const playerAttackSpeed = defaultAttackSpeed - (defaultAttackSpeed * (attackSpeed ?? 0) / 100)
+    const playerAttackSpeed = defaultAttackSpeed - (defaultAttackSpeed * (calculateAttackSpeed(playerInfo) ?? 0) / 100)
     const monsterAttackSpeed = defaultAttackSpeed - (defaultAttackSpeed * (monster.attackSpeed ?? 0) / 100)
 
     const {randomSpawnMonsters,setRandomSpawnMonsters} = useContext(RandomSpawnMonstersContext)!
 
     const [isOver, setIsOver] = useState(false)
-    const [playerHp, setPlayerHp] = useState(hp)
+    const [playerHp, setPlayerHp] = useState(calculateHp(playerInfo))
+    const maxPlayerHp = calculateHp(playerInfo)
     const [enemyHp, setEnemyHp] = useState(monster.hp)
 
-    const calculateAttack = (dmg: number, def: number, evade: number): number => {
+    const calculateAttack = (dmg: number, def: number, evade: number, criticalHit: number): number => {
         if(evade > Math.random() * 100) return 0
         if(dmg - (def * 0.5) < 0) return 1
-        return dmg - (def * 0.5)
+        if(criticalHit >= Math.random() * 100 + 1) return (dmg * 2 - (def * 0.5))
+        return Math.floor(dmg - (def * 0.5))
     }
 
     const playerAttack = () => {
         if(isOver) return
-        const dmg = Math.floor(Math.random() * 10 + 1 + (damage ?? 2 * 0.5))
-        if(enemyHp) setEnemyHp(enemyHp - calculateAttack(dmg, monster.arrmor ?? 0, monster.evasion))
+        const dmg = Math.floor(Math.random() * (calculatePlayerDamage(playerInfo)) + 1)
+        const criticalHit = calculateCriticalHit(playerInfo)
+        console.log(dmg)
+        if(enemyHp) setEnemyHp(enemyHp - calculateAttack(dmg, monster.arrmor ?? 0, monster.evasion, criticalHit))
     }
 
     const enemyAttack = () => {
         if(isOver) return
         const dmg = Math.floor(Math.random() * 10 + 1 + (monster.damage ?? 2 * 0.5))
-        if(playerHp) setPlayerHp(playerHp - calculateAttack(dmg, arrmor ?? 0, evasion ?? 0))
+        if(playerHp) setPlayerHp(playerHp - calculateAttack(dmg, arrmor ?? 0, evasion ?? 0, monster.luck))
     }
 
     const playerTrun = () => {
@@ -99,7 +107,7 @@ const Battle = () => {
                             <CharacterName character={{name: name}} />
                             <CharacterLvl character={{lvl: lvl}} />
                         </div>
-                        <CharacterHp character={{hp: playerHp, maxHp: maxHp}} />
+                        <CharacterHp character={{hp: playerHp, maxHp: maxPlayerHp}} />
                     </div>
                     <img src='./character.png' width={'200px'} />
                 </div>

@@ -3,10 +3,14 @@ import { Icon } from "@iconify/react/dist/iconify.js"
 import { useContext } from "react"
 import { playerInfoContext } from "../context/player-info.context"
 import CharacterStatistic from "../components/character-info/character-statistic"
+import { calculatePlayerDamage } from "../mixins/statistic"
+import { calculateAttackSpeed } from "../mixins/statistic"
+import { calculateHp } from "../mixins/statistic"
+import { calculateCriticalHit } from "../mixins/statistic"
 
 const CharacterPage = () => {
     const { playerInfo, setStats } = useContext(playerInfoContext)!
-    const { maxHp, damage, attackSpeed, arrmor, evasion, strength, dexterity, endurance, luck, skillPoints } = playerInfo
+    const { arrmor, evasion, strength, dexterity, endurance, luck, skillPoints } = playerInfo
 
     const Statistic = [
         { name: 'Strength', value: strength },
@@ -20,12 +24,12 @@ const CharacterPage = () => {
                 <Icon icon="pixelarticons:close" className="fixed top-2 left-4" width="40" height="40"  style={{color: '#fff'}} />
             </Link>
             <ul className="grid grid-cols-2 gap-4 p-4 border-2 border-white">
-                <li>HP: {maxHp}</li>
-                <li>Damage: {damage! + (strength! * 0.4)}</li>
-                <li>Attack speed: {attackSpeed}%</li>
+                <li>HP: {calculateHp(playerInfo)}</li>
+                <li>Damage: {calculatePlayerDamage(playerInfo)}</li>
+                <li>Attack speed: {calculateAttackSpeed(playerInfo)}%</li>
                 <li>Armor: {arrmor}</li>
                 <li>Evasion: {evasion}%</li>
-                <li>Critical hit chance: 5%</li>
+                <li>Critical hit chance: {calculateCriticalHit(playerInfo)}%</li>
             </ul>
             <ul className="flex flex-col justify-center items-center gap-10 p-4">
                 {Statistic && Statistic.map((statistic) => (

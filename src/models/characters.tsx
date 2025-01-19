@@ -35,7 +35,7 @@ export interface CharacterStatistics {
 
 export interface GameStatistics {
     attackSpeed: number,
-    get damage(): number,
+    damage: number,
     arrmor: number,
     evasion: number
 }
