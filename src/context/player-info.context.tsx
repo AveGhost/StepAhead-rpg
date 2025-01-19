@@ -7,6 +7,7 @@ interface PlayerInfoContext {
     playerInfo: Player
     setGold: (gold: number) => void
     setExp: (exp: number) => void
+    setStats: (stat: string, value: number, skillPoints?: number) => void
 }
 
 export const playerInfoContext = createContext<PlayerInfoContext | undefined>(undefined);
@@ -22,14 +23,15 @@ export const PlayerInfoProvider = ({ children }: { children?: ReactNode }) => {
         requiredExp: 100,
         hp: 100,
         maxHp: 100,
-        attackSpeed: 0,
         damage: 10,
+        attackSpeed: 0,
         arrmor: 0,
         evasion: 0,
         strength: 10,
         dexterity: 10,
         endurance: 10,
-        luck: 10
+        luck: 10,
+        skillPoints: 0,
     }});
     const setGold = (gold: number) => {
         setPlayerInfo(prev => ({ ...prev, gold: prev.gold! + gold }));
@@ -43,12 +45,18 @@ export const PlayerInfoProvider = ({ children }: { children?: ReactNode }) => {
                 ...prev,
                 exp: levelUp ? newExp - prev.requiredExp! : newExp,
                 lvl: levelUp ? prev.lvl! + 1 : prev.lvl,
+                skillPoints: levelUp ? prev.skillPoints! + 1 : prev.skillPoints,
             };
         });
     };
 
+    const setStats = (stat: string, value: number, skillPoints?: number) => {
+        if(skillPoints! <= 0) return
+        setPlayerInfo(prev => ({ ...prev, [stat]: value + 1, skillPoints: prev.skillPoints! - 1 }));
+    };
+
     return (
-        <playerInfoContext.Provider value={{ playerInfo, setGold, setExp }}>
+        <playerInfoContext.Provider value={{ playerInfo, setGold, setExp, setStats }}>
             {children}
         </playerInfoContext.Provider>
     );

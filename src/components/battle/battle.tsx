@@ -25,16 +25,22 @@ const Battle = () => {
     const [playerHp, setPlayerHp] = useState(hp)
     const [enemyHp, setEnemyHp] = useState(monster.hp)
 
+    const calculateAttack = (dmg: number, def: number, evade: number): number => {
+        if(evade > Math.random() * 100) return 0
+        if(dmg - (def * 0.5) < 0) return 1
+        return dmg - (def * 0.5)
+    }
+
     const playerAttack = () => {
         if(isOver) return
-        const attack = Math.floor(Math.random() * 10 + 1 + (damage ?? 2 * 0.5))
-        if(enemyHp) setEnemyHp(enemyHp - attack)
+        const dmg = Math.floor(Math.random() * 10 + 1 + (damage ?? 2 * 0.5))
+        if(enemyHp) setEnemyHp(enemyHp - calculateAttack(dmg, monster.arrmor ?? 0, monster.evasion))
     }
 
     const enemyAttack = () => {
         if(isOver) return
-        const attack = Math.floor(Math.random() * 10 + 1 + (monster.damage ?? 2 * 0.5))
-        if(playerHp) setPlayerHp(playerHp - attack)
+        const dmg = Math.floor(Math.random() * 10 + 1 + (monster.damage ?? 2 * 0.5))
+        if(playerHp) setPlayerHp(playerHp - calculateAttack(dmg, arrmor ?? 0, evasion ?? 0))
     }
 
     const playerTrun = () => {

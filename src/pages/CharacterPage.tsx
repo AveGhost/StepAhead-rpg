@@ -5,8 +5,8 @@ import { playerInfoContext } from "../context/player-info.context"
 import CharacterStatistic from "../components/character-info/character-statistic"
 
 const CharacterPage = () => {
-    const { playerInfo } = useContext(playerInfoContext)!
-    const { maxHp, damage, attackSpeed, arrmor, evasion, strength, dexterity, endurance, luck } = playerInfo
+    const { playerInfo, setStats } = useContext(playerInfoContext)!
+    const { maxHp, damage, attackSpeed, arrmor, evasion, strength, dexterity, endurance, luck, skillPoints } = playerInfo
 
     const Statistic = [
         { name: 'Strength', value: strength },
@@ -21,7 +21,7 @@ const CharacterPage = () => {
             </Link>
             <ul className="grid grid-cols-2 gap-4 p-4 border-2 border-white">
                 <li>HP: {maxHp}</li>
-                <li>Damage: {damage}</li>
+                <li>Damage: {damage! + (strength! * 0.4)}</li>
                 <li>Attack speed: {attackSpeed}%</li>
                 <li>Armor: {arrmor}</li>
                 <li>Evasion: {evasion}%</li>
@@ -29,9 +29,10 @@ const CharacterPage = () => {
             </ul>
             <ul className="flex flex-col justify-center items-center gap-10 p-4">
                 {Statistic && Statistic.map((statistic) => (
-                    <CharacterStatistic key={statistic.name} name={statistic.name} value={statistic.value ?? 0} />
+                    <CharacterStatistic onClick={() => setStats(statistic.name.toLowerCase(), statistic.value ?? 0, skillPoints)} key={statistic.name} name={statistic.name} value={statistic.value ?? 0} />
                 ))}
             </ul>
+            <p className="mt-4">Skill points: {skillPoints}</p>
         </div>
     )
 }

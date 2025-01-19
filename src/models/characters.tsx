@@ -23,6 +23,7 @@ export interface Player extends Partial<CharacterInfo>, Partial<Rewards>, Partia
     gold: number,
     exp: number,
     requiredExp: number,
+    skillPoints?: number
 }
 
 export interface CharacterStatistics {
@@ -34,7 +35,7 @@ export interface CharacterStatistics {
 
 export interface GameStatistics {
     attackSpeed: number,
-    damage: number,
+    get damage(): number,
     arrmor: number,
     evasion: number
 }
