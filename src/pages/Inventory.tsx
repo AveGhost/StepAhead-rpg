@@ -7,11 +7,11 @@ import { items } from "../api/items"
 const Inventory = () => {
 
     const [characterSlots, setCharacterSlots] = useLocalStorageState("character-slots", {defaultValue: [
-        {name: 'Helemt', image: '', type: 'helmet', stats: []},
-        {name: 'Gloves', image: '', type: 'gloves', stats: []},
-        {name: 'Arrmor', image: '', type: 'arrmor', stats: []},
-        {name: 'Weapon', image: '', type: 'weapon', stats: []},
-        {name: 'Boots', image: '', type: 'boots', stats: []}
+        {name: 'Helemt', image: '', type: 'helmet'},
+        {name: 'Gloves', image: '', type: 'gloves'},
+        {name: 'Arrmor', image: '', type: 'arrmor'},
+        {name: 'Weapon', image: '', type: 'weapon'},
+        {name: 'Boots', image: '', type: 'boots'}
     ]})
 
     const initializeSlots = () => {
@@ -22,9 +22,46 @@ const Inventory = () => {
         return slots;
       };
     
-      const [slots] = useLocalStorageState("slots", {
+      const [slots, setSlots] = useLocalStorageState("slots", {
         defaultValue: initializeSlots(),
       });
+
+      const equipItem = (item: Item) => {
+        setCharacterSlots((prev) => {
+          const newCharacterSlots = [...prev];
+          const slotIndex = newCharacterSlots.findIndex(slot => slot.type === item.type);
+      
+          if (slotIndex !== -1) {
+            newCharacterSlots[slotIndex] = item;
+            item.isEquipped = true;
+            setSlots(() => {
+                let newSlots = slots.filter((slot) => slot.type !== item.type)
+                return [...newSlots, []]
+            })
+          }
+          return newCharacterSlots;
+        });
+      };
+
+      const unequipItem = (item: Item) => {
+        setCharacterSlots((prev) => {
+          const newCharacterSlots = [...prev];
+          const slotIndex = newCharacterSlots.findIndex(slot => slot.type === item.type);
+          if (slotIndex !== -1) {
+            newCharacterSlots[slotIndex] = {name: 'Empty', image: '', type: item.type};
+            setSlots((prev) => {
+                let newSlots = [...prev]
+                const emptySlot = newSlots.findIndex(slot => slot.length === 0)
+                if(emptySlot !== -1) {
+                    newSlots[emptySlot] = item
+                    item.isEquipped = false
+                }
+                return newSlots
+            })
+          }
+          return newCharacterSlots;
+        });
+      }
 
     return (
         <div className="bg-zinc-900 h-screen flex flex-col justify-around px-4">
@@ -34,14 +71,14 @@ const Inventory = () => {
             <div className="grid grid-rows-[auto auto auto] grid-cols-3 gap-4 w-full">
                 {characterSlots.map((slot, index) => (
                     <ItemBox key={index} className={`${index === 0 ? "col-span-3 justify-self-center" : index >= 1 && index <= 3 ? "" : "col-span-3 justify-self-center" }`}>
-                        <Item item={slot} />
+                        <Item item={slot} unequipItem={unequipItem} />
                     </ItemBox>
                 ))}
             </div>
             <ul className="grid grid-cols-3 gap-4">
                 {slots.map((slot, index) => (
                     <ItemBox key={index}>
-                        <Item item={slot} />
+                        <Item equipItem={equipItem} item={slot} />
                     </ItemBox>
                 ))}
             </ul>
