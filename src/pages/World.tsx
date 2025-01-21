@@ -36,9 +36,9 @@ const World = () => {
                 <Link to='/character' className='border-2 p-2 flex justify-center items-center w-12 h-12 border-white'>
                     <Icon icon="pixelarticons:human-height" width="40" height="40" />
                 </Link>
-                <span className='border-2 flex justify-center items-center w-12 h-12 p-2 border-white'>
+                <Link to='/inventory' className='border-2 flex justify-center items-center w-12 h-12 p-2 border-white'>
                     <Icon icon="pixelarticons:archive" width="40" height="40"  style={{color: '#fff'}} />
-                </span>
+                </Link>
                 <span className='border-2 flex justify-center items-center w-12 h-12 p-2 border-white'>
                     <Icon icon="pixelarticons:cart" width="40" height="40" />
                 </span>
