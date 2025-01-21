@@ -2,31 +2,41 @@ import { Link } from "react-router"
 import { Icon } from "@iconify/react/dist/iconify.js"
 import ItemBox from "../components/inventory/item-box"
 import Item from "../components/inventory/item"
+import useLocalStorageState from "use-local-storage-state"
+import type { Item as Items } from "../models/items"
 
 const Inventory = () => {
-    const bow = [
+    const items = [
         {
             name: "Simple bow",
             image: "/items/bow_01.png",
             stats: [
                 {name: "Dexterity", value: `+${15}`},
+                {name: 'Attack speed', value: `+${5}%`},
+            ]
+        },
+        {
+            name: "Simple boots",
+            image: "/items/boots_02.png",
+            stats: [
                 {name: "Dexterity", value: `+${15}`},
-                {name: "Dexterity", value: `+${15}`},
-                {name: "Dexterity", value: `+${15}`},
-                {name: "Dexterity", value: `+${15}`},
-                {name: "Dexterity", value: `+${15}`},
-                {name: 'Attack speed', value: `+${5}%`},
-                {name: 'Attack speed', value: `+${5}%`},
-                {name: 'Attack speed', value: `+${5}%`},
-                {name: 'Attack speed', value: `+${5}%`},
-                {name: 'Attack speed', value: `+${5}%`},
-                {name: 'Attack speed', value: `+${5}%`},
                 {name: 'Attack speed', value: `+${5}%`},
             ]
         }
     ]
 
-    const slots = [1,2,3,4,5,6]
+    const initializeSlots = () => {
+        const slots = Array(6).fill([]);
+        for (let i = 0; i < items.length; i++) {
+          slots[i] = items[i];
+        }
+        return slots;
+      };
+    
+      const [slots] = useLocalStorageState("slots", {
+        defaultValue: initializeSlots(),
+      });
+
     return (
         <div className="bg-zinc-900 h-screen flex flex-col justify-around px-4">
             <Link to="/">
@@ -53,9 +63,9 @@ const Inventory = () => {
             </div>
             <div>
                 <ul className="grid grid-cols-3 gap-4">
-                    {slots.map((slot) => (
-                        <ItemBox key={slot}>
-                            <Item item={bow[0]} />
+                    {slots.map((slot, index) => (
+                        <ItemBox key={index}>
+                            <Item item={slot} />
                         </ItemBox>
                     ))}
                 </ul>
