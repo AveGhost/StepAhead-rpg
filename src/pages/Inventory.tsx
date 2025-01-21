@@ -48,7 +48,7 @@ const Inventory = () => {
           const newCharacterSlots = [...prev];
           const slotIndex = newCharacterSlots.findIndex(slot => slot.type === item.type);
           if (slotIndex !== -1) {
-            newCharacterSlots[slotIndex] = {name: 'Empty', image: '', type: item.type};
+            newCharacterSlots[slotIndex] = {name: item.type.charAt(0).toUpperCase() + item.type.slice(1), image: '', type: item.type};
             setSlots((prev) => {
                 let newSlots = [...prev]
                 const emptySlot = newSlots.findIndex(slot => slot.length === 0)
