@@ -1,11 +1,12 @@
 import { ReactNode } from "react"
 
-const ItemBox = ({children}: {children?: ReactNode}) => {
+const ItemBox = ({ children, className }: { children?: ReactNode; className?: string }) => {
     return (
-        <div className="w-full h-full max-w-[150px] border border-gray-600 aspect-square">
-            {children}
-        </div>
-    )
-}
+      <div className={`relative w-full h-full max-w-[150px] border flex justify-center items-center border-gray-600 aspect-square overflow-hidden ${className || "" }`}>
+        {children}
+      </div>
+    );
+  };
+  
 
 export default ItemBox

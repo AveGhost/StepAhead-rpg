@@ -3,27 +3,16 @@ import { Icon } from "@iconify/react/dist/iconify.js"
 import ItemBox from "../components/inventory/item-box"
 import Item from "../components/inventory/item"
 import useLocalStorageState from "use-local-storage-state"
-import type { Item as Items } from "../models/items"
-
+import { items } from "../api/items"
 const Inventory = () => {
-    const items = [
-        {
-            name: "Simple bow",
-            image: "/items/bow_01.png",
-            stats: [
-                {name: "Dexterity", value: `+${15}`},
-                {name: 'Attack speed', value: `+${5}%`},
-            ]
-        },
-        {
-            name: "Simple boots",
-            image: "/items/boots_02.png",
-            stats: [
-                {name: "Dexterity", value: `+${15}`},
-                {name: 'Attack speed', value: `+${5}%`},
-            ]
-        }
-    ]
+
+    const [characterSlots, setCharacterSlots] = useLocalStorageState("character-slots", {defaultValue: [
+        {name: 'Helemt', image: '', type: 'helmet', stats: []},
+        {name: 'Gloves', image: '', type: 'gloves', stats: []},
+        {name: 'Arrmor', image: '', type: 'arrmor', stats: []},
+        {name: 'Weapon', image: '', type: 'weapon', stats: []},
+        {name: 'Boots', image: '', type: 'boots', stats: []}
+    ]})
 
     const initializeSlots = () => {
         const slots = Array(6).fill([]);
@@ -42,34 +31,20 @@ const Inventory = () => {
             <Link to="/">
                 <Icon icon="pixelarticons:close" className="fixed top-2 left-4" width="40" height="40"  style={{color: '#fff'}} />
             </Link>
-            <div className="flex items-center flex-col gap-4 w-full">
-                <ItemBox>
-                    <p className="flex justify-center items-center h-full">Helemt</p>
-                </ItemBox>
-                <div className="grid grid-cols-3 gap-4 w-full">
-                    <ItemBox>
-                        <p className="flex justify-center items-center h-full">Gloves</p>
+            <div className="grid grid-rows-[auto auto auto] grid-cols-3 gap-4 w-full">
+                {characterSlots.map((slot, index) => (
+                    <ItemBox key={index} className={`${index === 0 ? "col-span-3 justify-self-center" : index >= 1 && index <= 3 ? "" : "col-span-3 justify-self-center" }`}>
+                        <Item item={slot} />
                     </ItemBox>
-                    <ItemBox>
-                        <p className="flex justify-center items-center h-full">Arrmor</p>
-                    </ItemBox>
-                    <ItemBox>
-                        <p className="flex justify-center items-center h-full">Weapon</p>
-                    </ItemBox>
-                </div>
-                <ItemBox>
-                    <p className="flex justify-center items-center h-full">Boots</p>
-                </ItemBox>
+                ))}
             </div>
-            <div>
-                <ul className="grid grid-cols-3 gap-4">
-                    {slots.map((slot, index) => (
-                        <ItemBox key={index}>
-                            <Item item={slot} />
-                        </ItemBox>
-                    ))}
-                </ul>
-            </div>
+            <ul className="grid grid-cols-3 gap-4">
+                {slots.map((slot, index) => (
+                    <ItemBox key={index}>
+                        <Item item={slot} />
+                    </ItemBox>
+                ))}
+            </ul>
         </div>
     )
 }
