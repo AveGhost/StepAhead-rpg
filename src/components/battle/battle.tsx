@@ -41,7 +41,6 @@ const Battle = () => {
         if(isOver) return
         const dmg = Math.floor(Math.random() * (calculatePlayerDamage(playerInfo)) + 1)
         const criticalHit = calculateCriticalHit(playerInfo)
-        console.log(dmg)
         if(enemyHp) setEnemyHp(enemyHp - calculateAttack(dmg, monster.arrmor ?? 0, monster.evasion, criticalHit))
     }
 

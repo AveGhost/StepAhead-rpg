@@ -17,13 +17,15 @@ export interface Rewards {
     setExp?: (exp: number) => void
 }
 
-export interface Player extends Partial<CharacterInfo>, Partial<Rewards>, Partial<GameStatistics>, Partial<CharacterStatistics> {
+export interface Player extends Partial<CharacterInfo>, Partial<Rewards> {
     id: string,
     avatar: string,
     gold: number,
     exp: number,
     requiredExp: number,
-    skillPoints?: number
+    skillPoints?: number,
+    attributes?: CharacterStatistics,
+    statistics?: GameStatistics
 }
 
 export interface CharacterStatistics {

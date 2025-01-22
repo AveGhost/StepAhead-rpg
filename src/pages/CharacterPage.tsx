@@ -10,14 +10,15 @@ import { calculateCriticalHit } from "../mixins/statistic"
 
 const CharacterPage = () => {
     const { playerInfo, setStats } = useContext(playerInfoContext)!
-    const { arrmor, evasion, strength, dexterity, endurance, luck, skillPoints } = playerInfo
+    const { attributes, statistics, skillPoints } = playerInfo!
 
     const Statistic = [
-        { name: 'Strength', value: strength },
-        { name: 'Dexterity', value: dexterity },
-        { name: 'Endurance', value: endurance },
-        { name: 'Luck', value: luck },
+        { name: 'Strength', value: attributes?.strength },
+        { name: 'Dexterity', value: attributes?.dexterity },
+        { name: 'Endurance', value: attributes?.endurance },
+        { name: 'Luck', value: attributes?.luck },
     ]
+
     return (
         <div className="bg-zinc-900 h-screen flex flex-col items-center justify-center">
             <Link to="/">
@@ -27,8 +28,8 @@ const CharacterPage = () => {
                 <li>HP: {calculateHp(playerInfo)}</li>
                 <li>Damage: {calculatePlayerDamage(playerInfo)}</li>
                 <li>Attack speed: {calculateAttackSpeed(playerInfo)}%</li>
-                <li>Armor: {arrmor}</li>
-                <li>Evasion: {evasion}%</li>
+                <li>Armor: {statistics?.arrmor}</li>
+                <li>Evasion: {statistics?.evasion}%</li>
                 <li>Critical hit chance: {calculateCriticalHit(playerInfo)}%</li>
             </ul>
             <ul className="flex flex-col justify-center items-center gap-10 p-4">

@@ -1,62 +1,50 @@
 import { createContext, ReactNode } from "react";
 import { Player } from "../models/characters";
 import useLocalStorageState from "use-local-storage-state";
-import { nanoid } from "nanoid";
+import { playerDefault } from "../api/player-default";
+import { setExp as setExpFunction } from "../mixins/setexp";
+import { setGold as setGoldFunction } from "../mixins/setgold";
+import { setStats as setStatsFunction } from "../mixins/setstats";
+import { setStatsFromItem as setStatsFromItemFunction } from "../mixins/setstatsFromItem";
+import { removeStatsFromItem as removeStatsFromItemFunction } from "../mixins/removeStatsFromItem";
+import { Item } from "../models/items";
 
 interface PlayerInfoContext {
     playerInfo: Player
     setGold: (gold: number) => void
     setExp: (exp: number) => void
     setStats: (stat: string, value: number, skillPoints?: number) => void
+    setStatsFromItem: (item: Item) => void
+    removeStatsFromItem: (item: Item) => void
 }
 
 export const playerInfoContext = createContext<PlayerInfoContext | undefined>(undefined);
 
 export const PlayerInfoProvider = ({ children }: { children?: ReactNode }) => {
-    const [playerInfo, setPlayerInfo] = useLocalStorageState<Player>('playerInfo', {defaultValue: {
-        id: nanoid(),
-        name: 'AveGhost',
-        avatar: 'avatar.png',
-        gold: 0,
-        lvl: 1,
-        exp: 0,
-        requiredExp: 100,
-        hp: 100,
-        maxHp: 100,
-        damage: 5,
-        attackSpeed: 0,
-        arrmor: 0,
-        evasion: 0,
-        strength: 7,
-        dexterity: 3,
-        endurance: 5,
-        luck: 1,
-        skillPoints: 0,
-    }});
+    const [playerInfo, setPlayerInfo] = useLocalStorageState<Player>('playerInfo', {defaultValue: {...playerDefault}});
+    
     const setGold = (gold: number) => {
-        setPlayerInfo(prev => ({ ...prev, gold: prev.gold! + gold }));
+        setPlayerInfo(prev => setGoldFunction(prev, gold));
     };
 
     const setExp = (exp: number) => {
-        setPlayerInfo(prev => {
-            const newExp = prev.exp! + exp;
-            const levelUp = newExp >= prev.requiredExp!;
-            return {
-                ...prev,
-                exp: levelUp ? newExp - prev.requiredExp! : newExp,
-                lvl: levelUp ? prev.lvl! + 1 : prev.lvl,
-                skillPoints: levelUp ? prev.skillPoints! + 1 : prev.skillPoints,
-            };
-        });
+        setPlayerInfo(prev => setExpFunction(prev, exp));
     };
 
     const setStats = (stat: string, value: number, skillPoints?: number) => {
-        if(skillPoints! <= 0) return
-        setPlayerInfo(prev => ({ ...prev, [stat]: value + 1, skillPoints: prev.skillPoints! - 1 }));
+        setPlayerInfo(prev => setStatsFunction(prev, stat, value, skillPoints || 0));
+    };
+
+    const setStatsFromItem = (item: Item) => {
+        setPlayerInfo(prev => setStatsFromItemFunction(prev, item));
+    };
+
+    const removeStatsFromItem = (item: Item) => {
+        setPlayerInfo(prev => removeStatsFromItemFunction(prev, item));
     };
 
     return (
-        <playerInfoContext.Provider value={{ playerInfo, setGold, setExp, setStats }}>
+        <playerInfoContext.Provider value={{ playerInfo, setGold, setExp, setStats, setStatsFromItem, removeStatsFromItem }}>
             {children}
         </playerInfoContext.Provider>
     );
