@@ -14,7 +14,7 @@ const Shop = () => {
                 <Icon icon="pixelarticons:close" className="fixed top-2 left-4" width="40" height="40"  style={{color: '#fff'}} />
             </Link>
             <div className="grid grid-cols-3 gap-4">
-                {shopSlots.map((slot, index) => (
+                {shopSlots.map((_, index) => (
                     <ItemBox key={index}>
                         <ShopItem item={items[index]} buyItem={buyItem} />
                     </ItemBox>

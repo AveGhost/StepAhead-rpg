@@ -10,7 +10,7 @@ const ShopItem = ({item, buyItem}: {item?: Item, buyItem: (playerInfo: Player, i
     const {playerInfo} = useContext(playerInfoContext)!
 
     return (
-        item?.name && (
+        item?.isOnSale && (
             <div className="p-4 group">
                 <div className="text-[#C19A6B] text-center absolute -top-full left-0 opacity-0 group-hover:opacity-100 bg-gray-700 p-4 transition-opacity duration-300 w-full h-full overflow-y-auto pointer-events-none">
                     <span className="flex items-center text-white gap-2">{item?.price} <Icon icon="wpf:coins" width="16" height="16"  style={{color: '#fff'}} /></span>

@@ -73,6 +73,7 @@ export const InventoryProvider = ({ children }: { children?: ReactNode }) => {
                 const emptySlot = newSlots.findIndex(slot => slot.length === 0)
                 if(emptySlot !== -1) {
                     newSlots[emptySlot] = item
+                    item.isOnSale = false
                 }
                 return newSlots
             })
