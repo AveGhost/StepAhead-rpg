@@ -2,6 +2,7 @@ import { createContext, ReactNode } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { Item } from "../models/items";
 import { initializeSlots } from "../mixins/initializeSlots";
+import { Player } from "../models/characters";
 interface InventoryContext {
     characterSlots: Item[];
     setCharacterSlots: (characterSlots: Item[]) => void;
@@ -9,6 +10,7 @@ interface InventoryContext {
     setSlots: (slots: Item[][]) => void;
     equipItem: (item: Item) => void;
     unequipItem: (item: Item) => void;
+    buyItem: (playerInfo: Player, item: Item) => void;
 }
 
 export const InventoryContext = createContext<InventoryContext | undefined>(undefined);
@@ -63,8 +65,22 @@ export const InventoryProvider = ({ children }: { children?: ReactNode }) => {
         });
       }
 
+      const buyItem = (playerInfo: Player, item: Item) => {
+        if(playerInfo?.gold >= item?.price!) {
+            playerInfo.gold -= item?.price!
+            setSlots((prev) => {
+                let newSlots = [...prev]
+                const emptySlot = newSlots.findIndex(slot => slot.length === 0)
+                if(emptySlot !== -1) {
+                    newSlots[emptySlot] = item
+                }
+                return newSlots
+            })
+        }
+    }
+
     return (
-        <InventoryContext.Provider value={{characterSlots, setCharacterSlots, slots, setSlots, equipItem, unequipItem}}>
+        <InventoryContext.Provider value={{characterSlots, setCharacterSlots, slots, setSlots, equipItem, unequipItem, buyItem}}>
             {children}
         </InventoryContext.Provider>
     );

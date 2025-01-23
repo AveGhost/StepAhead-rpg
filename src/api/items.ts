@@ -12,7 +12,8 @@ export const items: Item[] = [
         stats: [
             {name: ItemStatistics.attackSpeed, value: 5},
             {name: ItemStatistics.damage, value: 5}
-        ]
+        ],
+        price: 100
     },
     {
         name: "Simple boots",
@@ -23,6 +24,7 @@ export const items: Item[] = [
         stats: [
             {name: ItemStatistics.arrmor, value: 5},
             {name: ItemStatistics.evasion, value: 5}
-        ]
+        ],
+        price: 0
     }
 ]

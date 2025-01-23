@@ -4,6 +4,7 @@ import World from './pages/World';
 import BattleArea from './pages/BattleArea';
 import CharacterPage from './pages/CharacterPage';
 import Inventory from './pages/Inventory';
+import Shop from './pages/ShopPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path='battle' element={<BattleArea/>}></Route>
           <Route path='character' element={<CharacterPage/>}></Route>
           <Route path='inventory' element={<Inventory/>}></Route>
+          <Route path='shop' element={<Shop/>}></Route>
         </Routes>
     </BrowserRouter>
   )

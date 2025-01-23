@@ -39,9 +39,9 @@ const World = () => {
                 <Link to='/inventory' className='border-2 flex justify-center items-center w-12 h-12 p-2 border-white'>
                     <Icon icon="pixelarticons:archive" width="40" height="40"  style={{color: '#fff'}} />
                 </Link>
-                <span className='border-2 flex justify-center items-center w-12 h-12 p-2 border-white'>
+                <Link to="/shop" className='border-2 flex justify-center items-center w-12 h-12 p-2 border-white'>
                     <Icon icon="pixelarticons:cart" width="40" height="40" />
-                </span>
+                </Link>
             </PlayerInfo>
             <img src='./character.png' width={'120px'} style={{bottom: `${steps}%`}} className="fixed right-[23%]" />
             {randomSpawnMonsters.map((enemy) => (
