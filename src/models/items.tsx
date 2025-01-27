@@ -16,6 +16,7 @@ export interface Item extends ItemArrmor, ItemWeapon {
     stats?: {name: ItemStatistics, value: number}[]
     price?: number
     isOnSale?: boolean
+    rarity?: string
 }
 
 export interface ItemArrmor {

@@ -44,7 +44,7 @@ export const InventoryProvider = ({ children }: { children?: ReactNode }) => {
             newCharacterSlots[slotIndex] = item;
             item.isEquipped = true;
             setSlots(() => {
-                let newSlots = slots.filter((slot) => slot.type !== item.type)
+                let newSlots = slots.filter((slot) => slot.name !== item.name)
                 return [...newSlots, []]
             })
           }

@@ -14,7 +14,7 @@ import { calculateCriticalHit } from "../../mixins/statistic"
 
 const Battle = () => {
     const {playerInfo, setExp, setGold} = useContext(playerInfoContext)!
-    const {lvl, name, arrmor, evasion} = playerInfo!
+    const {lvl, name, statistics} = playerInfo!
     const navigate = useNavigate()
     const location = useLocation()
     const {monster} = location.state || {}
@@ -47,7 +47,7 @@ const Battle = () => {
     const enemyAttack = () => {
         if(isOver) return
         const dmg = Math.floor(Math.random() * 10 + 1 + (monster.damage ?? 2 * 0.5))
-        if(playerHp) setPlayerHp(playerHp - calculateAttack(dmg, arrmor ?? 0, evasion ?? 0, monster.luck))
+        if(playerHp) setPlayerHp(playerHp - calculateAttack(dmg, statistics?.arrmor ?? 0, statistics?.evasion ?? 0, monster.luck))
     }
 
     const playerTrun = () => {

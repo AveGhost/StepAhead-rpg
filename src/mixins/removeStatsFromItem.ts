@@ -18,7 +18,6 @@ export const removeStatsFromItem = (prev: Player, item: Item): Player => {
 
     item.stats?.forEach((itemStat) => {
         const statName = itemStat.name as keyof GameStatistics;
-        console.log(updatedStatistics[statName])
         if (statName in updatedStatistics) {
             updatedStatistics[statName] -= itemStat.value;
         }

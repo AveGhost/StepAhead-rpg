@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, useState } from 'react'
 import Enemy from '../components/enemies/enemy'
 import { characterMove } from '../models/movement'
 import PlayerInfo from '../components/player/player-info'
@@ -9,11 +9,13 @@ import { RandomSpawnMonstersContext } from '../context/random-spawn-monsters.con
 import { StepsContext } from '../context/steps-context.tsx'
 import { nanoid } from 'nanoid'
 import { Icon } from '@iconify/react/dist/iconify.js'
-
+import RewardsModal from '../components/rewards/rewards-modal.tsx'
 const World = () => {
     const { steps, setSteps } = useContext(StepsContext)!
     const { randomSpawnMonsters, setRandomSpawnMonsters, spawn } = useContext(RandomSpawnMonstersContext)!
     const { playerInfo } = useContext(playerInfoContext)!
+    const [showRewards, setShowRewards] = useState(false)
+    const [selectedEnemy, setSelectedEnemy] = useState<EnemyType | undefined>(undefined)
     const navigate = useNavigate()
 
     characterMove({ steps, setSteps })
@@ -27,7 +29,17 @@ const World = () => {
     },[steps])
 
     const choosenEnemy = (e: EnemyType): void => {
+        setShowRewards(true)
+        setSelectedEnemy(e)
+    }
+
+    const goToBattle = (e: EnemyType): void => {
         navigate('/battle', {state: {monster: e}})
+        setShowRewards(false)
+    }
+
+    const cancelBattle = (): void => {
+        setShowRewards(false)
     }
 
     return (
@@ -47,6 +59,7 @@ const World = () => {
             {randomSpawnMonsters.map((enemy) => (
                 <Enemy key={enemy.id} enemies={enemy} onClick={() => choosenEnemy(enemy)} />
             ))}
+            {showRewards && <RewardsModal enemies={selectedEnemy} goToBattle={() => goToBattle(selectedEnemy!)} cancelBattle={() => cancelBattle()} />}
         </div>
     )
 }

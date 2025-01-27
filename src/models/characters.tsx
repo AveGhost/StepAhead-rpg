@@ -1,3 +1,5 @@
+import { Item } from "./items"
+
 export interface CharacterInfo {
     name?: string,
     hp?: number,
@@ -5,7 +7,7 @@ export interface CharacterInfo {
     lvl?: number,
 }
 
-export interface Enemy extends Partial<CharacterInfo>, Partial<CharacterStatistics>, Partial<GameStatistics> {
+export interface Enemy extends Partial<CharacterInfo>, Partial<CharacterStatistics>, Partial<GameStatistics>, Partial<MonsterRewards> {
     id: string,
     name?: string,
     position?: {x: number, y: number} | null,
@@ -40,4 +42,10 @@ export interface GameStatistics {
     damage: number,
     arrmor: number,
     evasion: number
+}
+
+export interface MonsterRewards {
+    gold: number,
+    exp: number,
+    item: Item
 }

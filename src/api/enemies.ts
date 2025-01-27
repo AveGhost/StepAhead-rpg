@@ -1,5 +1,6 @@
 import { Enemy } from "../models/characters"
 import { nanoid } from "nanoid"
+import { items } from "./items"
 export const enemies: Enemy[] = [
   {
     "id": nanoid(),
@@ -13,7 +14,10 @@ export const enemies: Enemy[] = [
     "arrmor": 2,
     "attackSpeed": 1,
     "evasion": 2,
-    "damage": 12
+    "damage": 12,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -27,7 +31,10 @@ export const enemies: Enemy[] = [
     "arrmor": 1,
     "attackSpeed": 3,
     "evasion": 5,
-    "damage": 8
+    "damage": 8,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -41,7 +48,10 @@ export const enemies: Enemy[] = [
     "arrmor": 4,
     "attackSpeed": 1,
     "evasion": 1,
-    "damage": 15
+    "damage": 15,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -55,7 +65,10 @@ export const enemies: Enemy[] = [
     "arrmor": 0,
     "attackSpeed": 4,
     "evasion": 8,
-    "damage": 14
+    "damage": 14,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -69,7 +82,10 @@ export const enemies: Enemy[] = [
     "arrmor": 1,
     "attackSpeed": 2,
     "evasion": 3,
-    "damage": 13
+    "damage": 13,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -83,7 +99,10 @@ export const enemies: Enemy[] = [
     "arrmor": 3,
     "attackSpeed": 2,
     "evasion": 4,
-    "damage": 17
+    "damage": 17,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -97,7 +116,10 @@ export const enemies: Enemy[] = [
     "arrmor": 6,
     "attackSpeed": 1,
     "evasion": 0,
-    "damage": 20
+    "damage": 20,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -111,7 +133,10 @@ export const enemies: Enemy[] = [
     "arrmor": 0,
     "attackSpeed": 5,
     "evasion": 10,
-    "damage": 9
+    "damage": 9,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -125,7 +150,10 @@ export const enemies: Enemy[] = [
     "arrmor": 5,
     "attackSpeed": 2,
     "evasion": 2,
-    "damage": 18
+    "damage": 18,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -139,7 +167,10 @@ export const enemies: Enemy[] = [
     "arrmor": 1,
     "attackSpeed": 3,
     "evasion": 6,
-    "damage": 16
+    "damage": 16,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -153,7 +184,10 @@ export const enemies: Enemy[] = [
     "arrmor": 4,
     "attackSpeed": 2,
     "evasion": 3,
-    "damage": 21
+    "damage": 21,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -167,7 +201,10 @@ export const enemies: Enemy[] = [
     "arrmor": 8,
     "attackSpeed": 1,
     "evasion": 1,
-    "damage": 25
+    "damage": 25,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -181,7 +218,10 @@ export const enemies: Enemy[] = [
     "arrmor": 0,
     "attackSpeed": 4,
     "evasion": 7,
-    "damage": 6
+    "damage": 6,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -195,7 +235,10 @@ export const enemies: Enemy[] = [
     "arrmor": 7,
     "attackSpeed": 1,
     "evasion": 2,
-    "damage": 22
+    "damage": 22,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   },
   {
     "id": nanoid(),
@@ -209,6 +252,9 @@ export const enemies: Enemy[] = [
     "arrmor": 3,
     "attackSpeed": 2,
     "evasion": 4,
-    "damage": 19
+    "damage": 19,
+    "exp": 10,
+    "gold": 10,
+    "item": items[0]
   }
 ]
