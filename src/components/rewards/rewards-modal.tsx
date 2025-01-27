@@ -24,7 +24,7 @@ const RewardsModal = ({enemies, goToBattle, cancelBattle}: RewardModalProps) => 
                     <li className="flex justify-between items-center">EXP: <span className="flex gap-3 items-center">{enemies?.exp}<Icon icon="mdi:star-four-points-box-outline" width="24" height="24"  style={{color: '#fff'}} /></span></li>
                     <li className="flex justify-between items-center">GOLD: <span className="flex gap-3 items-center">{enemies?.gold}<Icon icon="material-symbols-light:money-bag" width="24" height="24"  style={{color: '#C19A6B'}} /></span></li>
                     {enemies?.item &&
-                        <li className="self-center">
+                        <li className="flex justify-center w-full max-w-[125px] mx-auto">
                             <ItemBox>
                                 <Item item={enemies?.item} />
                             </ItemBox>
