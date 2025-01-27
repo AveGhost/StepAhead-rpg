@@ -2,6 +2,7 @@ import { createContext, ReactNode } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { Item } from "../models/items";
 import { initializeSlots } from "../mixins/initializeSlots";
+import { initializeShop } from "../mixins/initializeShop";
 import { Player } from "../models/characters";
 interface InventoryContext {
     characterSlots: Item[];
@@ -10,6 +11,8 @@ interface InventoryContext {
     setSlots: (slots: Item[][]) => void;
     equipItem: (item: Item) => void;
     unequipItem: (item: Item) => void;
+    shopSlots: Item[];
+    setShopSlots: (shopSlots: Item[]) => void;
     buyItem: (playerInfo: Player, item: Item) => void;
 }
 
@@ -26,6 +29,10 @@ export const InventoryProvider = ({ children }: { children?: ReactNode }) => {
     
     const [slots, setSlots] = useLocalStorageState("slots", {
         defaultValue: initializeSlots(),
+    });
+
+    const [shopSlots, setShopSlots] = useLocalStorageState("shop-slots", {
+        defaultValue: initializeShop(),
     });
 
     const equipItem = (item: Item) => {
@@ -77,11 +84,20 @@ export const InventoryProvider = ({ children }: { children?: ReactNode }) => {
                 }
                 return newSlots
             })
+            setShopSlots((prev) => {
+                let newSlots = [...prev]
+                const shopItem = newSlots.findIndex(slot => slot.name === item.name)
+                if(shopItem !== -1) {
+                    newSlots[shopItem] = []
+                    item.isOnSale = false
+                }
+                return newSlots
+            })
         }
     }
 
     return (
-        <InventoryContext.Provider value={{characterSlots, setCharacterSlots, slots, setSlots, equipItem, unequipItem, buyItem}}>
+        <InventoryContext.Provider value={{characterSlots, setCharacterSlots, slots, setSlots, equipItem, unequipItem, buyItem, shopSlots, setShopSlots}}>
             {children}
         </InventoryContext.Provider>
     );
