@@ -26,55 +26,82 @@ const Battle = () => {
     const {randomSpawnMonsters,setRandomSpawnMonsters} = useContext(RandomSpawnMonstersContext)!
 
     const [isOver, setIsOver] = useState(false)
+    const [playerWin, setPlayerWin] = useState(false)
+    const [monsterWin, setMonsterWin] = useState(false)
+    const [gainedExp, setGainedExp] = useState(monster.exp)
+    const [gainedGold, setGainedGold] = useState(monster.gold)
+    const [isPlayerAttack, setIsPlayerAttack] = useState(false)
+    const [isMonsterAttack, setIsMonsterAttack] = useState(false)
     const [playerHp, setPlayerHp] = useState(calculateHp(playerInfo))
     const maxPlayerHp = calculateHp(playerInfo)
     const [enemyHp, setEnemyHp] = useState(monster.hp)
 
+    useEffect(() => {
+        fightOver(playerHp, enemyHp)
+    },[isOver])
+
+    const fightOver = (currentPlayerHp: number, currentEnemyHp: number) => {
+        if(currentPlayerHp <= 0) {
+            setMonsterWin(true)
+            setGainedExp(Math.floor(gainedExp * 0.2))
+            setGainedGold(Math.floor(gainedGold * 0.2))
+        } else if(currentEnemyHp <= 0) {
+            setPlayerWin(true)
+        }
+    }
+
     const calculateAttack = (dmg: number, def: number, evade: number, criticalHit: number): number => {
-        if(evade > Math.random() * 100) return 0
+        if(evade > Math.floor(Math.random() * 100 + 1)) return 0
         if(dmg - (def * 0.5) < 0) return 1
-        if(criticalHit >= Math.random() * 100 + 1) return (dmg * 2 - (def * 0.5))
+        if(criticalHit >= Math.floor(Math.random() * 100 + 1)) return (dmg * 2 - (def * 0.5))
         return Math.floor(dmg - (def * 0.5))
     }
 
     const playerAttack = () => {
-        if(isOver) return
+        if(enemyHp <= 0 || playerHp <= 0) {
+            setIsOver(true) 
+            return
+        } 
         const dmg = Math.floor(Math.random() * (calculatePlayerDamage(playerInfo)) + 1)
         const criticalHit = calculateCriticalHit(playerInfo)
+        console.log(dmg)
         if(enemyHp) setEnemyHp(enemyHp - calculateAttack(dmg, monster.arrmor ?? 0, monster.evasion, criticalHit))
     }
 
     const enemyAttack = () => {
-        if(isOver) return
-        const dmg = Math.floor(Math.random() * 10 + 1 + (monster.damage ?? 2 * 0.5))
+        if(enemyHp <= 0 || playerHp <= 0) {
+            setIsOver(true)
+            return
+        } 
+        const dmg = Math.floor(Math.random() * monster.damage + 1)
         if(playerHp) setPlayerHp(playerHp - calculateAttack(dmg, statistics?.arrmor ?? 0, statistics?.evasion ?? 0, monster.luck))
     }
 
     const playerTrun = () => {
         setTimeout(() => {
             playerAttack()
+            setIsPlayerAttack(!isPlayerAttack)
         }, playerAttackSpeed)
     }
 
     const enemyTurn = () => {
         setTimeout(() => {
             enemyAttack()
+            setIsMonsterAttack(!isMonsterAttack)
         }, monsterAttackSpeed)
     }
-
-    const fightOver = () => {
-        if(playerHp! <= 0 || enemyHp! <= 0) {
-            setIsOver(true)
-        }
-    }
-
     const removeMonster = () => {
         setRandomSpawnMonsters(randomSpawnMonsters.filter((m) => m.id !== monster.id))
     }
 
     const handleRewards = () => {
-        setGold(5)
-        setExp(20)
+        if(playerWin) {
+            setGold(Math.floor(gainedGold))
+            setExp(Math.floor(gainedExp))
+        } else if(monsterWin) {
+            setGold(gainedGold)
+            setExp(gainedExp)
+        }
     }
 
     const claimReward = () => {
@@ -83,19 +110,14 @@ const Battle = () => {
         handleRewards()
         navigate('/')
     }
-
+    
     useEffect(() => {
         playerTrun()
-    }, [enemyHp])
+    },[isPlayerAttack])
 
     useEffect(() => {
         enemyTurn()
-    }, [playerHp])
-
-    useEffect(() => {
-        fightOver()
-    },[playerHp, enemyHp])
-
+    },[isMonsterAttack])
 
     return (
         <>
@@ -121,7 +143,7 @@ const Battle = () => {
                     <Enemy enemies={{id: monster.id, name: monster.name, model: monster.model}} />
                 </div>
             </div>
-            {isOver && <BattleOver claim={claimReward} /> }
+            {isOver && <BattleOver claim={claimReward} gainedExp={gainedExp} gainedGold={gainedGold} /> }
         </>
     )
 }
