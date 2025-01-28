@@ -138,7 +138,7 @@ const Battle = () => {
 
     return (
         <>
-            <div className="flex justify-between items-center w-full h-screen z-10 relative">
+            <div className="flex justify-around items-center w-full h-screen z-10 relative">
                 <div>
                     <div className="max-w-[150px] mx-auto">
                         <div className="flex justify-between items-center mb-2">
@@ -147,7 +147,7 @@ const Battle = () => {
                         </div>
                         <CharacterHp character={{hp: playerHp, maxHp: maxPlayerHp}} />
                     </div>
-                    <img src='./character.png' width={'200px'} />
+                    <img src='./character.png' width={'120px'} />
                 </div>
                 <div>
                     <div className="max-w-[150px] mx-auto">
