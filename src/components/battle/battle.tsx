@@ -13,10 +13,12 @@ import { calculateAttackSpeed } from "../../mixins/statistic"
 import { calculateHp } from "../../mixins/statistic"
 import { calculateCriticalHit } from "../../mixins/statistic"
 import { Item } from "../../models/items"
+import { NotificationContext } from "../../context/notification.context"
 
 const Battle = () => {
     const {playerInfo, setExp, setGold} = useContext(playerInfoContext)!
     const {setSlots} = useContext(InventoryContext)!
+    const {setIsNewItem} = useContext(NotificationContext)!
     const {lvl, name, statistics} = playerInfo!
     const navigate = useNavigate()
     const location = useLocation()
@@ -51,7 +53,10 @@ const Battle = () => {
             setGainedGold(Math.floor(gainedGold * 0.2))
         } else if(currentEnemyHp <= 0) {
             setPlayerWin(true)
-            setGainedItem(monster.item)
+            if(monster.item) {
+                setGainedItem(monster.item)
+                setIsNewItem(true)
+            }
         }
     }
 

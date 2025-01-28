@@ -8,6 +8,7 @@ import { setStats as setStatsFunction } from "../mixins/setstats";
 import { setStatsFromItem as setStatsFromItemFunction } from "../mixins/setstatsFromItem";
 import { removeStatsFromItem as removeStatsFromItemFunction } from "../mixins/removeStatsFromItem";
 import { Item } from "../models/items";
+import { removeGold as removeGoldFunction } from "../mixins/removeGold";
 
 interface PlayerInfoContext {
     playerInfo: Player
@@ -16,6 +17,7 @@ interface PlayerInfoContext {
     setStats: (stat: string, value: number, skillPoints?: number) => void
     setStatsFromItem: (item: Item) => void
     removeStatsFromItem: (item: Item) => void
+    removeGold: (gold: number) => void
 }
 
 export const playerInfoContext = createContext<PlayerInfoContext | undefined>(undefined);
@@ -26,6 +28,10 @@ export const PlayerInfoProvider = ({ children }: { children?: ReactNode }) => {
     const setGold = (gold: number) => {
         setPlayerInfo(prev => setGoldFunction(prev, gold));
     };
+
+    const removeGold = (gold: number) => {
+        setPlayerInfo(prev => removeGoldFunction(prev, gold));
+    }
 
     const setExp = (exp: number) => {
         setPlayerInfo(prev => setExpFunction(prev, exp));
@@ -44,7 +50,7 @@ export const PlayerInfoProvider = ({ children }: { children?: ReactNode }) => {
     };
 
     return (
-        <playerInfoContext.Provider value={{ playerInfo, setGold, setExp, setStats, setStatsFromItem, removeStatsFromItem }}>
+        <playerInfoContext.Provider value={{ playerInfo, setGold, setExp, setStats, setStatsFromItem, removeStatsFromItem, removeGold }}>
             {children}
         </playerInfoContext.Provider>
     );

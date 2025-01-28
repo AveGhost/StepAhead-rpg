@@ -9,6 +9,7 @@ export enum ItemStatistics {
     luck = 'luck'
 }
 export interface Item extends ItemArrmor, ItemWeapon {
+    id?: string
     name: string
     image: string
     type: string

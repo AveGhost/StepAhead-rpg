@@ -10,10 +10,15 @@ import { StepsContext } from '../context/steps-context.tsx'
 import { nanoid } from 'nanoid'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import RewardsModal from '../components/rewards/rewards-modal.tsx'
+import Notification from '../components/notification/notification.tsx'
+import { NotificationContext } from '../context/notification.context.tsx'
+import { InventoryContext } from '../context/inventory.context.tsx'
 const World = () => {
     const { steps, setSteps } = useContext(StepsContext)!
     const { randomSpawnMonsters, setRandomSpawnMonsters, spawn } = useContext(RandomSpawnMonstersContext)!
+    const { isLvlUp, isNewItem, isNewShopItem } = useContext(NotificationContext)!
     const { playerInfo } = useContext(playerInfoContext)!
+    const {slots} = useContext(InventoryContext)!
     const [showRewards, setShowRewards] = useState(false)
     const [selectedEnemy, setSelectedEnemy] = useState<EnemyType | undefined>(undefined)
     const navigate = useNavigate()
@@ -45,13 +50,16 @@ const World = () => {
     return (
         <div className='map relative bg-[url(/map.webp)] min-h-[100vh] bg-center bg-cover bg-no-repeat bg-fixed'>
             <PlayerInfo player={{id: nanoid(), name: 'AveGhost', avatar: 'avatar.png', gold: playerInfo?.gold, lvl: playerInfo?.lvl, exp: playerInfo?.exp, requiredExp: playerInfo?.requiredExp}} >
-                <Link to='/character' className='border-2 p-2 flex justify-center items-center w-12 h-12 border-white'>
+                <Link to='/character' className='border-2 p-2 flex justify-center items-center w-12 h-12 border-white relative'>
+                    {isLvlUp && <Notification />}
                     <Icon icon="pixelarticons:human-height" width="40" height="40" />
                 </Link>
-                <Link to='/inventory' className='border-2 flex justify-center items-center w-12 h-12 p-2 border-white'>
+                <Link to='/inventory' className='border-2 flex justify-center items-center w-12 h-12 p-2 border-white relative'>
+                    {isNewItem && <Notification />}
                     <Icon icon="pixelarticons:archive" width="40" height="40"  style={{color: '#fff'}} />
                 </Link>
-                <Link to="/shop" className='border-2 flex justify-center items-center w-12 h-12 p-2 border-white'>
+                <Link to="/shop" className='border-2 flex justify-center items-center w-12 h-12 p-2 border-white relative'>
+                    {isNewShopItem && <Notification />}
                     <Icon icon="pixelarticons:cart" width="40" height="40" />
                 </Link>
             </PlayerInfo>
@@ -59,7 +67,7 @@ const World = () => {
             {randomSpawnMonsters.map((enemy) => (
                 <Enemy key={enemy.id} enemies={enemy} onClick={() => choosenEnemy(enemy)} />
             ))}
-            {showRewards && <RewardsModal enemies={selectedEnemy} goToBattle={() => goToBattle(selectedEnemy!)} cancelBattle={() => cancelBattle()} />}
+            {showRewards && <RewardsModal enemies={selectedEnemy} goToBattle={() => goToBattle(selectedEnemy!)} cancelBattle={() => cancelBattle()} inventorySlots={slots} />}
         </div>
     )
 }

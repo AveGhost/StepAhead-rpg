@@ -1,16 +1,21 @@
 import { Link } from "react-router"
 import { Icon } from "@iconify/react/dist/iconify.js"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { playerInfoContext } from "../context/player-info.context"
 import CharacterStatistic from "../components/character-info/character-statistic"
 import { calculatePlayerDamage } from "../mixins/statistic"
 import { calculateAttackSpeed } from "../mixins/statistic"
 import { calculateHp } from "../mixins/statistic"
 import { calculateCriticalHit } from "../mixins/statistic"
-
+import { NotificationContext } from "../context/notification.context"
 const CharacterPage = () => {
     const { playerInfo, setStats } = useContext(playerInfoContext)!
     const { attributes, statistics, skillPoints } = playerInfo!
+    const {isLvlUp,setIsLvlUp} = useContext(NotificationContext)!
+
+    useEffect(() => {
+        if(isLvlUp) setIsLvlUp(false)
+    },[])
 
     const Statistic = [
         { name: 'Strength', value: attributes?.strength },

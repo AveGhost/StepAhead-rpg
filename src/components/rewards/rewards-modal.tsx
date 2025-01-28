@@ -8,9 +8,10 @@ interface RewardModalProps {
     enemies?: Enemies
     goToBattle: () => void,
     cancelBattle: () => void
+    inventorySlots: Item[]
 }
 
-const RewardsModal = ({enemies, goToBattle, cancelBattle}: RewardModalProps) => {
+const RewardsModal = ({enemies, goToBattle, cancelBattle, inventorySlots}: RewardModalProps) => {
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-[#000000] bg-opacity-50 flex justify-center items-center z-10">
             <div className="border border-[#C19A6B] bg-black/40 p-6 w-[400px] relative">
@@ -31,6 +32,7 @@ const RewardsModal = ({enemies, goToBattle, cancelBattle}: RewardModalProps) => 
                         </li>
                     }
                 </ul>
+                {inventorySlots[5].name && enemies?.item && <p className="text-center p-2 mt-6 bg-gray-900/80 text-rose-700">Inventory is full! Items will be lost.</p>}
                 <button onClick={() => goToBattle()} className="bg-[#C19A6B] text-white w-full py-2 mt-4 border border-transparent hover:bg-opacity-30 hover:border-[#C19A6B] transition-all duration-300">Fight</button>
             </div>
         </div>

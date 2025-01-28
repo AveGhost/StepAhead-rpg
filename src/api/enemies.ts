@@ -17,7 +17,7 @@ export const enemies: Enemy[] = [
     "damage": 12,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   },
   {
     "id": nanoid(),
@@ -34,7 +34,7 @@ export const enemies: Enemy[] = [
     "damage": 8,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   },
   {
     "id": nanoid(),
@@ -51,7 +51,7 @@ export const enemies: Enemy[] = [
     "damage": 15,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   },
   {
     "id": nanoid(),
@@ -68,7 +68,7 @@ export const enemies: Enemy[] = [
     "damage": 14,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   },
   {
     "id": nanoid(),
@@ -85,7 +85,7 @@ export const enemies: Enemy[] = [
     "damage": 13,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   },
   {
     "id": nanoid(),
@@ -102,7 +102,7 @@ export const enemies: Enemy[] = [
     "damage": 17,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   },
   {
     "id": nanoid(),
@@ -119,7 +119,7 @@ export const enemies: Enemy[] = [
     "damage": 20,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   },
   {
     "id": nanoid(),
@@ -136,7 +136,7 @@ export const enemies: Enemy[] = [
     "damage": 9,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   },
   {
     "id": nanoid(),
@@ -153,7 +153,7 @@ export const enemies: Enemy[] = [
     "damage": 18,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   },
   {
     "id": nanoid(),
@@ -170,7 +170,7 @@ export const enemies: Enemy[] = [
     "damage": 16,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   },
   {
     "id": nanoid(),
@@ -187,7 +187,7 @@ export const enemies: Enemy[] = [
     "damage": 21,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   },
   {
     "id": nanoid(),
@@ -204,7 +204,7 @@ export const enemies: Enemy[] = [
     "damage": 25,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   },
   {
     "id": nanoid(),
@@ -255,6 +255,6 @@ export const enemies: Enemy[] = [
     "damage": 19,
     "exp": 10,
     "gold": 10,
-    "item": items[0]
+    "item": items[1]
   }
 ]

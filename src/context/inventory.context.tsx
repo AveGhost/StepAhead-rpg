@@ -14,6 +14,7 @@ interface InventoryContext {
     shopSlots: Item[];
     setShopSlots: (shopSlots: Item[]) => void;
     buyItem: (playerInfo: Player, item: Item) => void;
+    sellItem: (tem: Item) => void;
 }
 
 export const InventoryContext = createContext<InventoryContext | undefined>(undefined);
@@ -74,7 +75,6 @@ export const InventoryProvider = ({ children }: { children?: ReactNode }) => {
 
       const buyItem = (playerInfo: Player, item: Item) => {
         if(playerInfo?.gold >= item?.price!) {
-            playerInfo.gold -= item?.price!
             setSlots((prev) => {
                 let newSlots = [...prev]
                 const emptySlot = newSlots.findIndex(slot => slot.length === 0)
@@ -96,8 +96,19 @@ export const InventoryProvider = ({ children }: { children?: ReactNode }) => {
         }
     }
 
+    const sellItem = (item: Item) => {
+        setSlots((prev) => {
+            let newSlots = [...prev]
+            const inventorySlot = newSlots.findIndex(slot => slot.id === item.id)
+            if(inventorySlot !== -1) {
+                newSlots[inventorySlot] = []
+            }
+            return newSlots
+        })
+    }
+
     return (
-        <InventoryContext.Provider value={{characterSlots, setCharacterSlots, slots, setSlots, equipItem, unequipItem, buyItem, shopSlots, setShopSlots}}>
+        <InventoryContext.Provider value={{characterSlots, setCharacterSlots, slots, setSlots, equipItem, unequipItem, buyItem, shopSlots, setShopSlots, sellItem}}>
             {children}
         </InventoryContext.Provider>
     );

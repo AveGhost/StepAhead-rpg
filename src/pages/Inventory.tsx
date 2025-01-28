@@ -4,11 +4,17 @@ import ItemBox from "../components/inventory/item-box"
 import Item from "../components/inventory/item"
 import { InventoryContext } from "../context/inventory.context"
 import { playerInfoContext } from "../context/player-info.context"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import ItemButton from "../components/inventory/item-button"
+import { NotificationContext } from "../context/notification.context"
 const Inventory = () => {
     const { characterSlots, slots, equipItem, unequipItem } = useContext(InventoryContext)!
     const {setStatsFromItem, removeStatsFromItem} = useContext(playerInfoContext)!
+    const {isNewItem, setIsNewItem} = useContext(NotificationContext)!
+
+    useEffect(() => {
+        if(isNewItem) setIsNewItem(false)
+    },[])
 
     const handleEquip = (item: Item) => {
         equipItem(item)
