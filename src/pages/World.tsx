@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from 'react'
 import Enemy from '../components/enemies/enemy'
-import { characterMove } from '../models/movement'
+import { characterMove } from '../models/movement.tsx'
 import PlayerInfo from '../components/player/player-info'
 import { playerInfoContext } from '../context/player-info.context.tsx'
 import { Enemy as EnemyType } from '../models/characters.tsx'
@@ -13,6 +13,8 @@ import RewardsModal from '../components/rewards/rewards-modal.tsx'
 import Notification from '../components/notification/notification.tsx'
 import { NotificationContext } from '../context/notification.context.tsx'
 import { InventoryContext } from '../context/inventory.context.tsx'
+import { Acceleration } from '../models/movement.tsx'
+
 const World = () => {
     const { steps, setSteps } = useContext(StepsContext)!
     const { randomSpawnMonsters, setRandomSpawnMonsters, spawn } = useContext(RandomSpawnMonstersContext)!
@@ -20,10 +22,23 @@ const World = () => {
     const { playerInfo } = useContext(playerInfoContext)!
     const {slots} = useContext(InventoryContext)!
     const [showRewards, setShowRewards] = useState(false)
+    const [movementChecker, setMovementChecker] = useState(false)
     const [selectedEnemy, setSelectedEnemy] = useState<EnemyType | undefined>(undefined)
     const navigate = useNavigate()
 
-    characterMove({ steps, setSteps })
+    setTimeout(() => {
+        setMovementChecker(!movementChecker)
+    },1500)
+
+    const lastAcceleration: Acceleration = { x: 0, y: 0, z: 0 };
+    const threshold = 1.5;
+    const debounceTime = 600;
+    const lastStepTime = 0;
+
+    useEffect(() => {
+        characterMove({ steps, setSteps, lastAcceleration, threshold, debounceTime, lastStepTime })
+    },[movementChecker])
+    
 
     useEffect(() => {
     if(steps >= 90) {
