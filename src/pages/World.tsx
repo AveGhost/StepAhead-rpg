@@ -16,7 +16,7 @@ import { InventoryContext } from '../context/inventory.context.tsx'
 const World = () => {
     const { steps, setSteps } = useContext(StepsContext)!
     const { randomSpawnMonsters, setRandomSpawnMonsters, spawn } = useContext(RandomSpawnMonstersContext)!
-    const { isLvlUp, isNewItem, isNewShopItem } = useContext(NotificationContext)!
+    const { isLvlUp, isNewItem, isNewShopItem, setIsLvlUp } = useContext(NotificationContext)!
     const { playerInfo } = useContext(playerInfoContext)!
     const {slots} = useContext(InventoryContext)!
     const [showRewards, setShowRewards] = useState(false)
@@ -32,6 +32,12 @@ const World = () => {
     }
     spawn()
     },[steps])
+
+    useEffect(() => {
+        if(playerInfo.skillPoints! > 0) {
+            setIsLvlUp(true)
+        }
+    }, [])
 
     const choosenEnemy = (e: EnemyType): void => {
         setShowRewards(true)

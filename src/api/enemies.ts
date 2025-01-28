@@ -15,7 +15,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 1,
     "evasion": 2,
     "damage": 12,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   },
@@ -32,7 +32,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 3,
     "evasion": 5,
     "damage": 8,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   },
@@ -49,7 +49,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 1,
     "evasion": 1,
     "damage": 15,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   },
@@ -66,7 +66,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 4,
     "evasion": 8,
     "damage": 14,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   },
@@ -83,7 +83,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 2,
     "evasion": 3,
     "damage": 13,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   },
@@ -100,7 +100,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 2,
     "evasion": 4,
     "damage": 17,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   },
@@ -117,7 +117,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 1,
     "evasion": 0,
     "damage": 20,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   },
@@ -134,7 +134,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 5,
     "evasion": 10,
     "damage": 9,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   },
@@ -151,7 +151,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 2,
     "evasion": 2,
     "damage": 18,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   },
@@ -168,7 +168,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 3,
     "evasion": 6,
     "damage": 16,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   },
@@ -185,7 +185,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 2,
     "evasion": 3,
     "damage": 21,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   },
@@ -202,7 +202,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 1,
     "evasion": 1,
     "damage": 25,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   },
@@ -219,7 +219,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 4,
     "evasion": 7,
     "damage": 6,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[0]
   },
@@ -236,7 +236,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 1,
     "evasion": 2,
     "damage": 22,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[0]
   },
@@ -253,7 +253,7 @@ export const enemies: Enemy[] = [
     "attackSpeed": 2,
     "evasion": 4,
     "damage": 19,
-    "exp": 10,
+    "exp": 50,
     "gold": 10,
     "item": items[1]
   }
