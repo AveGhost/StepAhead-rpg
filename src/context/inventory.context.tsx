@@ -8,7 +8,7 @@ interface InventoryContext {
     characterSlots: Item[];
     setCharacterSlots: (characterSlots: Item[]) => void;
     slots: Item[];
-    setSlots: (slots: Item[][]) => void;
+    setSlots: (slots: Item[][] | any) => void;
     equipItem: (item: Item) => void;
     unequipItem: (item: Item) => void;
     shopSlots: Item[];

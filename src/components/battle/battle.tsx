@@ -3,6 +3,7 @@ import CharacterHp from "../character-info/character-hp"
 import CharacterLvl from "../character-info/character-lvl"
 import CharacterName from "../character-info/character-name"
 import { playerInfoContext } from "../../context/player-info.context"
+import { InventoryContext } from "../../context/inventory.context"
 import { useContext, useEffect, useState } from "react"
 import BattleOver from "./battle-over-modal"
 import { useNavigate, useLocation } from "react-router"
@@ -11,9 +12,11 @@ import { calculatePlayerDamage } from "../../mixins/statistic"
 import { calculateAttackSpeed } from "../../mixins/statistic"
 import { calculateHp } from "../../mixins/statistic"
 import { calculateCriticalHit } from "../../mixins/statistic"
+import { Item } from "../../models/items"
 
 const Battle = () => {
     const {playerInfo, setExp, setGold} = useContext(playerInfoContext)!
+    const {setSlots} = useContext(InventoryContext)!
     const {lvl, name, statistics} = playerInfo!
     const navigate = useNavigate()
     const location = useLocation()
@@ -30,6 +33,7 @@ const Battle = () => {
     const [monsterWin, setMonsterWin] = useState(false)
     const [gainedExp, setGainedExp] = useState(monster.exp)
     const [gainedGold, setGainedGold] = useState(monster.gold)
+    const [gainedItem, setGainedItem] = useState<Item | undefined>(undefined)
     const [isPlayerAttack, setIsPlayerAttack] = useState(false)
     const [isMonsterAttack, setIsMonsterAttack] = useState(false)
     const [playerHp, setPlayerHp] = useState(calculateHp(playerInfo))
@@ -47,6 +51,7 @@ const Battle = () => {
             setGainedGold(Math.floor(gainedGold * 0.2))
         } else if(currentEnemyHp <= 0) {
             setPlayerWin(true)
+            setGainedItem(monster.item)
         }
     }
 
@@ -98,6 +103,14 @@ const Battle = () => {
         if(playerWin) {
             setGold(Math.floor(gainedGold))
             setExp(Math.floor(gainedExp))
+            setSlots((slots: Item[][]) => {
+                let newSlots = [...slots]
+                const emptySlot = newSlots.findIndex(slot => slot.length === 0)
+                if(emptySlot !== -1) {
+                    newSlots[emptySlot] = monster.item
+                }
+                return newSlots
+            })
         } else if(monsterWin) {
             setGold(gainedGold)
             setExp(gainedExp)
@@ -143,7 +156,7 @@ const Battle = () => {
                     <Enemy enemies={{id: monster.id, name: monster.name, model: monster.model}} />
                 </div>
             </div>
-            {isOver && <BattleOver claim={claimReward} gainedExp={gainedExp} gainedGold={gainedGold} /> }
+            {isOver && <BattleOver claim={claimReward} gainedExp={gainedExp} gainedGold={gainedGold} item={gainedItem} /> }
         </>
     )
 }
