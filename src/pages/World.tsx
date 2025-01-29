@@ -14,6 +14,7 @@ import Notification from '../components/notification/notification.tsx'
 import { NotificationContext } from '../context/notification.context.tsx'
 import { InventoryContext } from '../context/inventory.context.tsx'
 import { Acceleration } from '../models/movement.tsx'
+import { items } from '../api/items.ts'
 
 const World = () => {
     const { steps, setSteps } = useContext(StepsContext)!
@@ -25,7 +26,7 @@ const World = () => {
     const [movementChecker, setMovementChecker] = useState(false)
     const [selectedEnemy, setSelectedEnemy] = useState<EnemyType | undefined>(undefined)
     const navigate = useNavigate()
-
+    console.log(items)
     setTimeout(() => {
         setMovementChecker(!movementChecker)
     },1500)
