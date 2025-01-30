@@ -16,7 +16,6 @@ const itemRarity = (item?: Item) => {
     }
 }
 const Item = ({item, children}: {item?: Item, children?: React.ReactNode}) => {
-    console.log(item?.image)
     return (
         <div className="p-4 group h-full flex flex-col">
             {item?.stats !== undefined &&

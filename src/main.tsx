@@ -6,19 +6,22 @@ import { RandomSpawnMonstersProvider } from './context/random-spawn-monsters.con
 import { StepsProvider } from './context/steps-context.tsx'
 import { InventoryProvider } from './context/inventory.context.tsx'
 import { NotificationProvider } from './context/notification.context.tsx'
+import { PermisionProvider } from './context/permision.context.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <StepsProvider>
-      <NotificationProvider>
-        <PlayerInfoProvider>
-          <InventoryProvider>
-            <RandomSpawnMonstersProvider>
-              <App />
-            </RandomSpawnMonstersProvider>
-          </InventoryProvider>
-        </PlayerInfoProvider>
-      </NotificationProvider>
-    </StepsProvider>
+    <PermisionProvider>
+      <StepsProvider>
+        <NotificationProvider>
+          <PlayerInfoProvider>
+            <InventoryProvider>
+              <RandomSpawnMonstersProvider>
+                <App />
+              </RandomSpawnMonstersProvider>
+            </InventoryProvider>
+          </PlayerInfoProvider>
+        </NotificationProvider>
+      </StepsProvider>
+    </PermisionProvider>
   </StrictMode>,
 )

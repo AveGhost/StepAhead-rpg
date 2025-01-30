@@ -13,7 +13,8 @@ import RewardsModal from '../components/rewards/rewards-modal.tsx'
 import Notification from '../components/notification/notification.tsx'
 import { NotificationContext } from '../context/notification.context.tsx'
 import { InventoryContext } from '../context/inventory.context.tsx'
-
+import PermisionModal  from '../components/notification/request-permision.tsx'
+import { PermisionContext } from '../context/permision.context.tsx'
 const World = () => {
     const { steps, setSteps } = useContext(StepsContext)!
     const { randomSpawnMonsters, spawn } = useContext(RandomSpawnMonstersContext)!
@@ -22,6 +23,7 @@ const World = () => {
     const {slots} = useContext(InventoryContext)!
     const [showRewards, setShowRewards] = useState(false)
     const [selectedEnemy, setSelectedEnemy] = useState<EnemyType | undefined>(undefined)
+    const { isPermission } = useContext(PermisionContext)!
     const navigate = useNavigate()
 
 
@@ -41,10 +43,6 @@ const World = () => {
         }
     }, [])
 
-    const justForTest = () => {
-        setSteps(steps + 3)
-    }
-
     const choosenEnemy = (e: EnemyType): void => {
         setShowRewards(true)
         setSelectedEnemy(e)
@@ -61,6 +59,7 @@ const World = () => {
 
     return (
         <div className='map relative bg-[url(/map.webp)] min-h-[100vh] bg-center bg-cover bg-no-repeat bg-fixed'>
+            {!isPermission && <PermisionModal />}
             <PlayerInfo player={{id: nanoid(), name: 'AveGhost', avatar: 'avatar.png', gold: playerInfo?.gold, lvl: playerInfo?.lvl, exp: playerInfo?.exp, requiredExp: playerInfo?.requiredExp}} >
                 <Link to='/character' className='border-2 p-2 flex justify-center items-center w-12 h-12 border-white relative'>
                     {isLvlUp && <Notification />}
