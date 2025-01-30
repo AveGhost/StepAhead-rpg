@@ -30,8 +30,8 @@ const Shop = () => {
         sellItem(item)
     }
     return (
-        <div className="bg-zinc-900 h-screen flex flex-col justify-around px-4">
-            <div>
+        <div className="bg-zinc-900 h-full flex flex-col justify-around px-4">
+            <div className="py-4">
                 <h1 className="text-2xl text-center">Shop</h1>
                 <p className="text-lg text-[#C19A6B] justify-center items-center flex gap-2">Your gold: {playerInfo?.gold} <Icon icon="wpf:coins" width="12" height="12"  style={{color: '#C19A6B'}} /></p>
                 <button onClick={() => refreshShop(playerInfo)} disabled={playerInfo.gold < 100} className="bg-[#C19A6B] text-white w-full py-2 mt-4 border border-transparent hover:bg-opacity-30 hover:border-[#C19A6B] transition-all duration-300 max-w-[150px] mx-auto flex justify-center items-center gap-2">
@@ -42,7 +42,7 @@ const Shop = () => {
             <Link to="/">
                 <Icon icon="pixelarticons:close" className="fixed top-2 left-4" width="40" height="40"  style={{color: '#fff'}} />
             </Link>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-4 py-4">
                 {shopSlots.map((slot, index) => (
                     <ItemBox key={index}>
                         <Item item={slot}>
@@ -51,7 +51,9 @@ const Shop = () => {
                     </ItemBox>
                 ))}
             </div>
-            <ul className="grid grid-cols-3 gap-4">
+            <>
+            <h2 className="text-2xl text-center">Inventory</h2>
+            <ul className="grid grid-cols-3 gap-4 py-4">
                 {slots.map((slot, index) => (
                     <ItemBox key={index}>
                         <Item item={slot}>
@@ -60,6 +62,7 @@ const Shop = () => {
                     </ItemBox>
                 ))}
             </ul>
+            </>
         </div>
     )
 }

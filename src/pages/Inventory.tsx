@@ -27,11 +27,11 @@ const Inventory = () => {
     }
 
     return (
-        <div className="bg-zinc-900 h-screen flex flex-col justify-around px-4">
+        <div className="bg-zinc-900 h-full flex flex-col justify-around px-4">
             <Link to="/">
                 <Icon icon="pixelarticons:close" className="fixed top-2 left-4" width="40" height="40"  style={{color: '#fff'}} />
             </Link>
-            <div className="grid grid-rows-[auto auto auto] grid-cols-3 gap-4 w-full">
+            <div className="grid grid-rows-[auto auto auto] grid-cols-3 gap-4 w-full py-4">
                 {characterSlots.map((slot, index) => (
                     <ItemBox key={index} className={`${index === 0 ? "col-span-3 justify-self-center" : index >= 1 && index <= 3 ? "" : "col-span-3 justify-self-center" }`}>
                         <Item item={slot}>
@@ -40,7 +40,7 @@ const Inventory = () => {
                     </ItemBox>
                 ))}
             </div>
-            <ul className="grid grid-cols-3 gap-4">
+            <ul className="grid grid-cols-2 gap-4 py-4">
                 {slots.map((slot, index) => (
                     <ItemBox key={index}>
                         <Item item={slot}>

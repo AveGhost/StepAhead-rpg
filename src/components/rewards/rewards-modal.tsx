@@ -26,7 +26,7 @@ const RewardsModal = ({enemies, goToBattle, cancelBattle, inventorySlots}: Rewar
                     <li className="flex justify-between items-center">GOLD: <span className="flex gap-3 items-center">{enemies?.gold}<Icon icon="material-symbols-light:money-bag" width="24" height="24"  style={{color: '#C19A6B'}} /></span></li>
                     {enemies?.item &&
                         <li className="flex justify-center w-full max-w-[125px] mx-auto">
-                            <ItemBox className="h-[140px]">
+                            <ItemBox className="!h-[140px]">
                                 <Item item={enemies?.item} />
                             </ItemBox>
                         </li>

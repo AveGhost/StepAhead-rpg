@@ -25,7 +25,7 @@ const CharacterPage = () => {
     ]
 
     return (
-        <div className="bg-zinc-900 h-screen flex flex-col items-center justify-center">
+        <div className="bg-zinc-900 h-dvh flex flex-col items-center justify-center">
             <Link to="/">
                 <Icon icon="pixelarticons:close" className="fixed top-2 left-4" width="40" height="40"  style={{color: '#fff'}} />
             </Link>
