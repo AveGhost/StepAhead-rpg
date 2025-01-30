@@ -1,6 +1,6 @@
 import { Enemy } from "../models/characters"
 import { nanoid } from "nanoid"
-import { items } from "./items"
+import { ItemDrop } from "../mixins/itemDrop"
 export const enemies: Enemy[] = [
   {
     "id": nanoid(),
@@ -17,7 +17,7 @@ export const enemies: Enemy[] = [
     "damage": 12,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -34,7 +34,7 @@ export const enemies: Enemy[] = [
     "damage": 8,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -51,7 +51,7 @@ export const enemies: Enemy[] = [
     "damage": 15,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -68,7 +68,7 @@ export const enemies: Enemy[] = [
     "damage": 14,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -85,7 +85,7 @@ export const enemies: Enemy[] = [
     "damage": 13,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -102,7 +102,7 @@ export const enemies: Enemy[] = [
     "damage": 17,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -119,7 +119,7 @@ export const enemies: Enemy[] = [
     "damage": 20,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -136,7 +136,7 @@ export const enemies: Enemy[] = [
     "damage": 9,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -153,7 +153,7 @@ export const enemies: Enemy[] = [
     "damage": 18,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -170,7 +170,7 @@ export const enemies: Enemy[] = [
     "damage": 16,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -187,7 +187,7 @@ export const enemies: Enemy[] = [
     "damage": 21,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -204,7 +204,7 @@ export const enemies: Enemy[] = [
     "damage": 25,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -221,7 +221,7 @@ export const enemies: Enemy[] = [
     "damage": 6,
     "exp": 50,
     "gold": 10,
-    "item": items[0]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -238,7 +238,7 @@ export const enemies: Enemy[] = [
     "damage": 22,
     "exp": 50,
     "gold": 10,
-    "item": items[0]
+    "item": ItemDrop()
   },
   {
     "id": nanoid(),
@@ -255,6 +255,6 @@ export const enemies: Enemy[] = [
     "damage": 19,
     "exp": 50,
     "gold": 10,
-    "item": items[1]
+    "item": ItemDrop()
   }
 ]

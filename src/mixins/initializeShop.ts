@@ -1,11 +1,9 @@
-import { items } from "../api/items";
+import { ShopItemDrop } from "./shopItemsDrop";
 
 export const initializeShop = () => {
     const slots = Array(6).fill([]);
-    items.forEach((item, index) => {
-        if(item.isOnSale && index < 6) {
-            slots[index] = item
-        }
-    })
+    for(let i = 0; i < 6; i++) {
+        slots[i] = ShopItemDrop()
+    }
     return slots;
 }

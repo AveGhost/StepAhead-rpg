@@ -4,18 +4,19 @@ import ItemBox from "../components/inventory/item-box"
 import Item from "../components/inventory/item"
 import ItemButton from "../components/inventory/item-button"
 import { InventoryContext } from "../context/inventory.context"
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { playerInfoContext } from "../context/player-info.context"
 import { Player } from "../models/characters"
-import { NotificationContext } from "../context/notification.context"
+import { initializeShop } from "../mixins/initializeShop"
 const Shop = () => {
-    const {buyItem, shopSlots, slots, sellItem} = useContext(InventoryContext)!
+    const {buyItem, shopSlots, setShopSlots, slots, sellItem} = useContext(InventoryContext)!
     const { playerInfo, setGold, removeGold } = useContext(playerInfoContext)!
-    const {isNewShopItem, setIsNewShopItem} = useContext(NotificationContext)!
 
-    useEffect(() => {
-        if(isNewShopItem) setIsNewShopItem(false)
-    },[])
+    const refreshShop = (playerInfo: Player) => {
+        if(playerInfo.gold < 100) return
+        setShopSlots(initializeShop())
+        removeGold(100)
+    }
 
     const handleBuy = (playerInfo: Player, item: Item) => {
         if(playerInfo.gold < item.price!) return
@@ -33,6 +34,10 @@ const Shop = () => {
             <div>
                 <h1 className="text-2xl text-center">Shop</h1>
                 <p className="text-lg text-[#C19A6B] justify-center items-center flex gap-2">Your gold: {playerInfo?.gold} <Icon icon="wpf:coins" width="12" height="12"  style={{color: '#C19A6B'}} /></p>
+                <button onClick={() => refreshShop(playerInfo)} disabled={playerInfo.gold < 100} className="bg-[#C19A6B] text-white w-full py-2 mt-4 border border-transparent hover:bg-opacity-30 hover:border-[#C19A6B] transition-all duration-300 max-w-[150px] mx-auto flex justify-center items-center gap-2">
+                    <Icon icon="pixelarticons:repeat" width="24" height="24" />
+                    <span className="flex gap-2 items-center">100 <Icon icon="wpf:coins" width="12" height="12"  style={{color: '#fff'}} /></span>
+                </button>
             </div>
             <Link to="/">
                 <Icon icon="pixelarticons:close" className="fixed top-2 left-4" width="40" height="40"  style={{color: '#fff'}} />
@@ -41,7 +46,7 @@ const Shop = () => {
                 {shopSlots.map((slot, index) => (
                     <ItemBox key={index}>
                         <Item item={slot}>
-                            {slot.isOnSale && <ItemButton name='Buy' onClick={() => handleBuy(playerInfo,slot)} />}
+                            {slot.isOnSale && <ItemButton isDisabled={playerInfo.gold < slot.price!} name='Buy' onClick={() => handleBuy(playerInfo,slot)} />}
                         </Item>
                     </ItemBox>
                 ))}

@@ -14,19 +14,18 @@ import Notification from '../components/notification/notification.tsx'
 import { NotificationContext } from '../context/notification.context.tsx'
 import { InventoryContext } from '../context/inventory.context.tsx'
 import { Acceleration } from '../models/movement.tsx'
-import { items } from '../api/items.ts'
 
 const World = () => {
     const { steps, setSteps } = useContext(StepsContext)!
     const { randomSpawnMonsters, setRandomSpawnMonsters, spawn } = useContext(RandomSpawnMonstersContext)!
-    const { isLvlUp, isNewItem, isNewShopItem, setIsLvlUp } = useContext(NotificationContext)!
+    const { isLvlUp, isNewItem, setIsLvlUp } = useContext(NotificationContext)!
     const { playerInfo } = useContext(playerInfoContext)!
     const {slots} = useContext(InventoryContext)!
     const [showRewards, setShowRewards] = useState(false)
     const [movementChecker, setMovementChecker] = useState(false)
     const [selectedEnemy, setSelectedEnemy] = useState<EnemyType | undefined>(undefined)
     const navigate = useNavigate()
-    console.log(items)
+
     setTimeout(() => {
         setMovementChecker(!movementChecker)
     },1500)
@@ -46,7 +45,7 @@ const World = () => {
         setSteps(0)
         setRandomSpawnMonsters([])
     }
-    spawn()
+    spawn(playerInfo.lvl!)
     },[steps])
 
     useEffect(() => {
@@ -81,7 +80,6 @@ const World = () => {
                     <Icon icon="pixelarticons:archive" width="40" height="40"  style={{color: '#fff'}} />
                 </Link>
                 <Link to="/shop" className='border-2 flex justify-center items-center w-12 h-12 p-2 border-white relative'>
-                    {isNewShopItem && <Notification />}
                     <Icon icon="pixelarticons:cart" width="40" height="40" />
                 </Link>
             </PlayerInfo>

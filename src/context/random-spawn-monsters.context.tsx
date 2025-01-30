@@ -1,12 +1,13 @@
 import { createContext, ReactNode } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { Enemy } from "../models/characters";
-import { enemies } from "../api/enemies";
+import { lowLvlEnemies } from "../api/lowlvl-enemies";
+import { mediumLvlEnemies } from "../api/mediumlvl-enemies";
 
 type RandomSpawnMonstersContext = {
     randomSpawnMonsters: Enemy[]
     setRandomSpawnMonsters: (randomSpawnMonsters: Enemy[]) => void
-    spawn: () => void
+    spawn: (playerLvl: number) => void
 }
 
 export const RandomSpawnMonstersContext = createContext<RandomSpawnMonstersContext>({
@@ -18,9 +19,11 @@ export const RandomSpawnMonstersContext = createContext<RandomSpawnMonstersConte
 export const RandomSpawnMonstersProvider = ({ children }: { children?: ReactNode }) => {
     const [randomSpawnMonsters, setRandomSpawnMonsters] = useLocalStorageState<Enemy[]>('randomSpawnMonsters', { defaultValue: [] })
     const limit = Math.floor(Math.random() * 5) + 1
-    const spawn = () => {
-        if(randomSpawnMonsters.length === 0) {
-            setRandomSpawnMonsters(enemies.slice(0, limit))
+    const spawn = (playerLvl: number) => {
+        if(randomSpawnMonsters.length === 0 && playerLvl < 10) {
+            setRandomSpawnMonsters(lowLvlEnemies.slice(0, limit))
+        } else if(randomSpawnMonsters.length === 0 && playerLvl > 10) {
+            setRandomSpawnMonsters(mediumLvlEnemies.slice(0, limit))
         }
     }
     return (
