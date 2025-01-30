@@ -103,10 +103,8 @@ const Battle = () => {
         setRandomSpawnMonsters(randomSpawnMonsters.filter((m) => m.id !== monster.id))
     }
 
-    const handleRewards = () => {
-        if(playerWin) {
-            setGold(Math.floor(gainedGold))
-            setExp(Math.floor(gainedExp))
+    const handleItem = () => {
+        if(gainedItem) {
             setSlots((slots: Item[][]) => {
                 let newSlots = [...slots]
                 const emptySlot = newSlots.findIndex(slot => slot.length === 0)
@@ -115,6 +113,14 @@ const Battle = () => {
                 }
                 return newSlots
             })
+        }
+    }
+
+    const handleRewards = () => {
+        if(playerWin) {
+            setGold(Math.floor(gainedGold))
+            setExp(Math.floor(gainedExp))
+            handleItem()
         } else if(monsterWin) {
             setGold(gainedGold)
             setExp(gainedExp)
