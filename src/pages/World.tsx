@@ -74,7 +74,6 @@ const World = () => {
                     <Icon icon="pixelarticons:cart" width="40" height="40" />
                 </Link>
             </PlayerInfo>
-            <h1 className='text-6xl text-center' onClick={justForTest}>{randomSpawnMonsters.length}</h1>
             <img src='./character.png' width={'90px'} style={{bottom: `${steps}%`}} className="fixed right-[23%]" />
             {randomSpawnMonsters.map((enemy) => (
                 <Enemy key={enemy.id} enemies={enemy} onClick={() => choosenEnemy(enemy)} />
