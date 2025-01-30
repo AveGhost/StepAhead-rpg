@@ -40,7 +40,7 @@ const Inventory = () => {
                     </ItemBox>
                 ))}
             </div>
-            <ul className="grid grid-cols-2 gap-4 py-4">
+            <ul className="grid grid-cols-3 gap-4 py-4">
                 {slots.map((slot, index) => (
                     <ItemBox key={index}>
                         <Item item={slot}>

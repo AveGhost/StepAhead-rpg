@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from 'react'
 import Enemy from '../components/enemies/enemy'
-import { characterMove } from '../models/movement.tsx'
+import { useCharacterMove } from '../models/movement.tsx'
 import PlayerInfo from '../components/player/player-info'
 import { playerInfoContext } from '../context/player-info.context.tsx'
 import { Enemy as EnemyType } from '../models/characters.tsx'
@@ -13,39 +13,26 @@ import RewardsModal from '../components/rewards/rewards-modal.tsx'
 import Notification from '../components/notification/notification.tsx'
 import { NotificationContext } from '../context/notification.context.tsx'
 import { InventoryContext } from '../context/inventory.context.tsx'
-import { Acceleration } from '../models/movement.tsx'
 
 const World = () => {
     const { steps, setSteps } = useContext(StepsContext)!
-    const { randomSpawnMonsters, setRandomSpawnMonsters, spawn } = useContext(RandomSpawnMonstersContext)!
+    const { randomSpawnMonsters, spawn } = useContext(RandomSpawnMonstersContext)!
     const { isLvlUp, isNewItem, setIsLvlUp } = useContext(NotificationContext)!
     const { playerInfo } = useContext(playerInfoContext)!
     const {slots} = useContext(InventoryContext)!
     const [showRewards, setShowRewards] = useState(false)
-    const [movementChecker, setMovementChecker] = useState(false)
     const [selectedEnemy, setSelectedEnemy] = useState<EnemyType | undefined>(undefined)
     const navigate = useNavigate()
 
-    setTimeout(() => {
-        setMovementChecker(!movementChecker)
-    },1500)
 
-    const lastAcceleration: Acceleration = { x: 0, y: 0, z: 0 };
     const threshold = 1.5;
-    const debounceTime = 600;
-    const lastStepTime = 0;
+    const debounceTime = 800;
 
-    useEffect(() => {
-        characterMove({ steps, setSteps, lastAcceleration, threshold, debounceTime, lastStepTime })
-    },[movementChecker])
+    useCharacterMove({ setSteps,  threshold, debounceTime })
     
-
     useEffect(() => {
-    if(steps >= 90) {
-        setSteps(0)
-        setRandomSpawnMonsters([])
-    }
-    spawn(playerInfo.lvl!)
+        if(steps >= 80) setSteps(0)
+        spawn(playerInfo.lvl!, steps)
     },[steps])
 
     useEffect(() => {
@@ -53,6 +40,10 @@ const World = () => {
             setIsLvlUp(true)
         }
     }, [])
+
+    const justForTest = () => {
+        setSteps(steps + 3)
+    }
 
     const choosenEnemy = (e: EnemyType): void => {
         setShowRewards(true)
@@ -83,6 +74,7 @@ const World = () => {
                     <Icon icon="pixelarticons:cart" width="40" height="40" />
                 </Link>
             </PlayerInfo>
+            <h1 className='text-6xl text-center' onClick={justForTest}>{randomSpawnMonsters.length}</h1>
             <img src='./character.png' width={'90px'} style={{bottom: `${steps}%`}} className="fixed right-[23%]" />
             {randomSpawnMonsters.map((enemy) => (
                 <Enemy key={enemy.id} enemies={enemy} onClick={() => choosenEnemy(enemy)} />

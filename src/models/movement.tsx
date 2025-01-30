@@ -1,37 +1,41 @@
-export interface Acceleration {
-  x: number | null
-  y: number | null
-  z: number | null
+import { useEffect, useRef } from 'react';
+
+interface Movement {
+  setSteps: (steps: number | ((prev: number) => number)) => void;
+  threshold: number;
+  debounceTime: number;
 }
 
-export interface Steps {
-    steps: number;
-    setSteps: (step: number) => void;
-    lastAcceleration?: Acceleration;
-    threshold?: number;
-    debounceTime?: number;
-    lastStepTime?: number;
-}
+export const useCharacterMove = ({ setSteps, threshold, debounceTime }: Movement) => {
+  const lastStepTime = useRef<number>(0);
+  const lastAcceleration = useRef<{ x: number; y: number; z: number }>({ x: 0, y: 0, z: 0 });
 
-export const characterMove = ({ steps, setSteps, lastAcceleration, threshold, debounceTime, lastStepTime }: Steps): void => {
-  if (window.DeviceMotionEvent) {
-    window.addEventListener('devicemotion', (event: DeviceMotionEvent) => {
+  useEffect(() => {
+    const handleMotion = (event: DeviceMotionEvent) => {
       const acceleration = event.acceleration;
       if (acceleration) {
         const currentTime = Date.now();
-        const deltaZ = Math.abs((acceleration.z ?? 0) - (lastAcceleration?.z ?? 0));
-        if (deltaZ > threshold! && currentTime - lastStepTime! > debounceTime!) {
-          setSteps(steps + 3);
-          lastStepTime = currentTime;
+        const deltaZ = Math.abs((acceleration.z ?? 0) - lastAcceleration.current.z);
+
+        if (deltaZ > threshold && currentTime - lastStepTime.current > debounceTime) {
+          setSteps((prev) => prev + 3);
+          lastStepTime.current = currentTime;
         }
 
-        lastAcceleration = {
-          x: acceleration.x,
-          y: acceleration.y,
-          z: acceleration.z,
+        lastAcceleration.current = {
+          x: acceleration.x ?? lastAcceleration.current.x,
+          y: acceleration.y ?? lastAcceleration.current.y,
+          z: acceleration.z ?? lastAcceleration.current.z,
         };
       }
-    });
-  }
-}
+    };
 
+    window.addEventListener('devicemotion', handleMotion);
+
+    return () => {
+      window.removeEventListener('devicemotion', handleMotion);
+    };
+  }, [setSteps, threshold, debounceTime]);
+
+  return null;
+};
