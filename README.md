@@ -1,3 +1,11 @@
+# StepAhead is and "AR" rpg writes in TypeScript using 'DeviceMotionEvent', so it's not a really AR game but only simulate this behavior :) (UI/UX is develop only on mobile)
+
+![image](https://github.com/user-attachments/assets/987bece8-6a2e-4200-8ecd-064ef9d344a6)
+![image](https://github.com/user-attachments/assets/513c460e-d934-42d5-94cc-1ea40097f02a)
+![image](https://github.com/user-attachments/assets/15221787-39f9-4ad7-9862-371b120e700f)
+![image](https://github.com/user-attachments/assets/67e1a265-3b78-48ea-8dfa-46068a287b7b)
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
