@@ -1,4 +1,5 @@
-# StepAhead is and "AR" rpg writes in TypeScript using 'DeviceMotionEvent', so it's not a really AR game but only simulate this behavior :) (UI/UX is develop only on mobile)
+# StepAhead 
+is and "AR" rpg writes in TypeScript using 'DeviceMotionEvent', so it's not a really AR game but only simulate this behavior :) (UI/UX is develop only on mobile)
 
 ![image](https://github.com/user-attachments/assets/987bece8-6a2e-4200-8ecd-064ef9d344a6)
 ![image](https://github.com/user-attachments/assets/513c460e-d934-42d5-94cc-1ea40097f02a)
